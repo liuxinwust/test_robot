@@ -1,0 +1,8 @@
+<library path="lib/libaubo_i5_moveit_plugin">
+  <class name="aubo_kinematics/AuboKinematicsPlugin" type="aubo_kinematics::AuboKinematicsPlugin" base_class_type="kinematics::KinematicsBase">
+    <description>
+      Analytic kinematics for the Aubo Robots I5.
+    </description>
+  </class>
+</library>
+

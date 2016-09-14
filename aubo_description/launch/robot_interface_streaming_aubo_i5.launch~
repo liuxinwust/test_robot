@@ -1,0 +1,22 @@
+
+<!--
+  Manipulator specific version of 'robot_interface_streaming.launch'.
+
+  Defaults provided for aubo:
+   - 6 joints
+
+  Usage:
+    robot_interface_streaming_aubo.launch robot_ip:=<value> controller:=<fs100|dx100>
+-->
+<launch>
+  <arg name="robot_ip" />
+	
+  <!-- controller: Controller name (fs100 or dx100) -->
+  <arg name="controller"/>
+
+  <rosparam command="load" file="$(find aubo_description)/config/aubo_i5_motion_interface.yaml" />
+
+  <include file="$(find aubo_driver)/launch/robot_multigroup_interface_streaming_$(arg controller).launch">
+    <arg name="robot_ip"   value="$(arg robot_ip)" />
+  </include>
+</launch>

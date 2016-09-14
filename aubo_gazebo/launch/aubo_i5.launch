@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+  <include
+    file="$(find gazebo_ros)/launch/empty_world.launch" >
+    <arg name="world_name" default="worlds/empty.world"/>  
+    <arg name="paused" value="false"/>
+    <arg name="gui" value="true"/>
+  </include>
+
+  <!-- send robot urdf to param server -->
+  <include file="$(find aubo_description)/launch/aubo_i5_gazebo.launch"/>
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -z 0.49" respawn="false" output="screen" />
+
+
+  <include file="$(find aubo_gazebo)/launch/controller_utils.launch"/>
+  
+  <rosparam file="$(find aubo_gazebo)/controller/arm_controller_aubo_i5.yaml" command="load"/>
+  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller" respawn="false" output="screen"/>
+</launch>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find aubo_i5_moveit_config)/launch/demo.launch"/>
+
+  <node name="trajectory_gen" pkg="aubo_trajectory" type="trajectory_gen" respawn="false" output="screen">
+  </node>
+
+</launch>

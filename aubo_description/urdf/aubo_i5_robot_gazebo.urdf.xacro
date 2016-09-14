@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="aubo_i5" >
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find aubo_description)/urdf/common.gazebo.xacro" />
+  
+  <!-- aubo_i5 -->
+  <xacro:include filename="$(find aubo_description)/urdf/aubo_i5.urdf.xacro" />
+
+  <!-- arm -->
+  <xacro:aubo_i5_robot prefix=""/>
+  <link name="world"/>
+
+  <joint name="world_joint" type="fixed">
+    <parent link="world"/>
+    <child link="base_Link"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+
+  <link 
+    name="pedestal_Link">
+    <visual>
+      <geometry>
+        <mesh
+          filename="package://aubo_description/meshes/pedestal.STL" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint 
+    name="pedestal_joint" 
+    type="fixed">
+    <parent link="base_Link"/>
+    <child link="pedestal_Link"/>
+    <origin xyz="0.0 0.0 -0.40" rpy="0.0 0.0 0.0" />
+  </joint>
+
+</robot>
