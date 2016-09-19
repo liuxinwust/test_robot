@@ -92,8 +92,8 @@ There is another actionlib demo with a simulated robot in Gazebo.
 
 
 
-__MoveIt! with a real robot use Peakcan Tool__ 
-There is a trajectory demo for this part. 
+__MoveIt! with a real robot use Peakcan Tool__  
+There is a trajectory demo for this part.  
 1.Make sure have installed Peakcan driver, connect peackcan to aubo robot i5, then run command,optional parameter(-S1,-S2,-S3) can control the joint move speed.
 ```rosrun aubo_control joint_control_pcan -S1```
    Note:default joint move speed is S1. 
