@@ -2,6 +2,9 @@
 Changelog for package aubo_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.0 (2016-09-19)
 ------------------
 * add CHANGELOG.rst
