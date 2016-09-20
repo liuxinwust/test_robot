@@ -4,6 +4,8 @@ Changelog for package aubo_control
 
 Forthcoming
 -----------
+* update CHANGELOG.rst
+* Contributors: robot
 
 0.1.0 (2016-09-19)
 ------------------
