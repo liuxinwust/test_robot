@@ -2,8 +2,8 @@
 Changelog for package aubo_i5_moveit_config
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.1 (2016-09-20)
+------------------
 * update CHANGELOG.rst
 * Contributors: robot
 
