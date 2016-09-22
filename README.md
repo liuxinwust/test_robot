@@ -5,13 +5,16 @@ This repository provides ROS support for the aubo robots.
 This repo holds source code for ROS versions Indigo.
 
 __Operating System Install__  
+
 Operating system version is not less than Ubuntu linux 14.04, some Libs and API supports 64bit interface.
 Ubuntu Linux download:http://www.ubuntu.com/download/
 
 __Peak_Can drive Install__  
-vsersion peak-linux-driver-8.1,download: http://www.peak-system.com/fileadmin/media/linux/
+
+Version peak-linux-driver-8.1,download: http://www.peak-system.com/fileadmin/media/linux/
 
 __Qt5 Widgets Install__  
+
 Version:qt-opensource-linux-x64-5.6.1-1,download: https://www.qt.io/download-open-source/#section-2
 
 __Installation from Source__  
@@ -63,7 +66,8 @@ __Usage with control real robot use TCP/IP Server__
 
 
 
-__MoveIt! with a simulated robot in Gazebo__  
+__MoveIt! with a simulated robot in Gazebo__ 
+
 Again, you can use MoveIt! to control the simulated robot.  
 1.To bring up the simulated robot in Gazebo, run:
 
@@ -97,6 +101,7 @@ There is another actionlib demo with a simulated robot in Gazebo.
 
 
 __MoveIt! with a real robot use Peakcan Tool__  
+
 There is a trajectory demo for this part.  
 1.Make sure have installed Peakcan driver, connect peackcan to aubo robot i5, then run command,optional parameter(-S1,-S2,-S3) can control the joint move speed.
 
