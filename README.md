@@ -9,8 +9,10 @@ Operating system version is not less than Ubuntu linux 14.04, some Libs and API 
 Ubuntu Linux download:http://www.ubuntu.com/download/
 
 __Peak_Can drive Install__  
-Download: http://www.peak-system.com/fileadmin/media/linux/
+vsersion peak-linux-driver-8.1,download: http://www.peak-system.com/fileadmin/media/linux/
 
+__Qt5 Widgets Install__  
+Version:qt-opensource-linux-x64-5.6.1-1,download: https://www.qt.io/download-open-source/#section-2
 
 __Installation from Source__  
 
@@ -33,7 +35,7 @@ __Usage with control real robot directly use Peakcan Tool__
   
    Note:default joint move speed is S1. 
 
-2.A simple gui tool,can moves the robot to predefined positions can be executed like this:
+2.A simple gui tool based Qt5,can moves the robot to predefined positions can be executed like this:
 
 ```rosrun aubo_control control_panel```
    
@@ -53,7 +55,7 @@ __Usage with control real robot use TCP/IP Server__
 
 ```roslaunch aubo_driver aubo_i5_bringup.launch robot_ip:=192.168.1.34```
 
-2.A simple gui tool based on Qt5,can control the robot to predefined positions can be executed like this:
+2.A simple gui tool based Qt5,can control the robot to predefined positions can be executed like this:
 
 ```rosrun aubo_control control_panel```
 
@@ -86,7 +88,7 @@ There is another actionlib demo with a simulated robot in Gazebo.
 
 ```rosrun aubo_trajectory trajectory_client```
 
-3.A simple gui tool,can control the robot to predefined positions can be executed like this:
+3.A simple gui tool based Qt5,can control the robot to predefined positions can be executed like this:
 
 ```rosrun aubo_control control_panel```
 
@@ -114,7 +116,7 @@ There is a trajectory demo for this part.
 
 ```rosrun aubo_trajectory trajectory_goal```
 
-5.A simple gui tool,can control the robot to predefined positions can be executed like this:
+5.A simple gui tool based Qt5,can control the robot to predefined positions can be executed like this:
 
 ```rosrun aubo_control control_panel```
 
