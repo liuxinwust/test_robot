@@ -21,7 +21,10 @@ __Installation from Source__
 
 First set up a catkin workspace (see [this tutorials](http://wiki.ros.org/catkin/Tutorials)).  
 Then clone the repository into the src/ folder. It should look like /path/to/your/catkin_workspace/src/aubo_robot.  
-Make sure to source the correct setup file according to your workspace hierarchy, then use ```catkin_make``` to compile.  
+Make sure to source the correct setup file according to your workspace hierarchy, then use ```catkin_make``` to compile.
+
+If there is  a linking dependency in aubo_driver with libev library. To solve it it is necessary to install it: 
+```sudo apt-get install libev-dev```
 
 __Usage with rviz Simulation__  
 
