@@ -4,7 +4,7 @@ project(aubo_trajectory)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS actionlib_msgs actionlib moveit_core moveit_ros_planning moveit_ros_planning_interface pluginlib cmake_modules)
+find_package(catkin REQUIRED COMPONENTS aubo_msgs actionlib_msgs actionlib moveit_core moveit_ros_planning moveit_ros_planning_interface pluginlib cmake_modules)
 
 
 find_package(Boost REQUIRED system filesystem date_time thread)
