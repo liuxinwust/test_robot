@@ -12,7 +12,8 @@ find_package(Boost REQUIRED system filesystem date_time thread)
 
 catkin_package(
 
-  CATKIN_DEPENDS 
+  CATKIN_DEPENDS
+    aubo_msgs 
     moveit_core
     moveit_ros_planning_interface
     interactive_markers

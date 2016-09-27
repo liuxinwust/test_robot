@@ -25,7 +25,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES hello_world
- CATKIN_DEPENDS roscpp rospy std_msgs sensor_msgs 
+ CATKIN_DEPENDS roscpp rospy std_msgs sensor_msgs aubo_msgs 
 #  DEPENDS system_lib
 )
 

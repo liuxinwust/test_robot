@@ -12,7 +12,7 @@ find_path(libcontrolAPI_INCLUDE_DIR
 
 find_library(libcontrolAPI
 	NAMES controlAPI
-	PATHS ${PROJECT_SOURCE_DIR}/../aubo_driver/lib
+	PATHS ${PROJECT_SOURCE_DIR}/lib
 )
 
 
