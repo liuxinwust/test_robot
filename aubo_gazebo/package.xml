@@ -3,7 +3,7 @@
   <name>aubo_gazebo</name>
   <version>0.1.1</version>
   <description>
-      Gazebo wrapper for the Aubo robot arms.
+      Gazebo wrapper for the Aubo robot.
   </description>
 
   
