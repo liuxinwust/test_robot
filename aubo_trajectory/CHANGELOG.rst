@@ -11,13 +11,6 @@ Forthcoming
   add aubo_msgs to find_package
 * Contributors: JerryLiu, robot
 
-* fixed a lib path bug
-* Update package.xml
-  add aubo_msgs to build_depend
-* Update CMakeLists.txt
-  add aubo_msgs to find_package
-* Contributors: JerryLiu, robot
-
 0.1.1 (2016-09-20)
 ------------------
 * update CHANGELOG.rst

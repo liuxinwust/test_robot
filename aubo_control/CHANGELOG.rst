@@ -11,13 +11,6 @@ Forthcoming
   add aubo_msgs required.
 * Contributors: JerryLiu, robot
 
-* fixed a lib path bug
-* Update package.xml
-  add aubo_msgs  build_depend
-* Update CMakeLists.txt
-  add aubo_msgs required.
-* Contributors: JerryLiu, robot
-
 0.1.1 (2016-09-20)
 ------------------
 * update CHANGELOG.rst
