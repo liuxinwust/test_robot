@@ -15,6 +15,11 @@ find_library(libcontrolAPI
 	PATHS ${PROJECT_SOURCE_DIR}/lib
 )
 
+find_library(libev
+	NAMES ev
+	PATHS ${PROJECT_SOURCE_DIR}/lib
+)
+
 
 
 set(libcontrolAPI_INCLUDE_DIRS ${libcontrolAPI_INCLUDE_DIR})

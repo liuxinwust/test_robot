@@ -169,7 +169,7 @@ add_executable(aubo_driver ${${PROJECT_NAME}_SOURCES})
 
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(aubo_driver ${catkin_LIBRARIES} ${libcontrolAPI} m ev pthread)
+target_link_libraries(aubo_driver ${catkin_LIBRARIES} ${libcontrolAPI} m ${libev} pthread)
 
 
 #############
