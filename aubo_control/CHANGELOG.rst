@@ -2,8 +2,8 @@
 Changelog for package aubo_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.2 (2016-09-30)
+------------------
 * fixed a lib path bug
 * Update package.xml
   add aubo_msgs  build_depend
