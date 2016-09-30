@@ -1,7 +1,7 @@
 #include <moveit/move_group_interface/move_group.h>
 #include <math.h>
 #include <std_msgs/Float32MultiArray.h>
-#include <aubo_msgs/TraPoint.h>
+#include "aubo_msgs/TraPoint.h"
 #include "moveit_msgs/DisplayTrajectory.h"
 
 using namespace std;

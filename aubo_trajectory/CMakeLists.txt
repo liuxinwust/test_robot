@@ -11,7 +11,6 @@ find_package(Boost REQUIRED system filesystem date_time thread)
 
 
 catkin_package(
-
   CATKIN_DEPENDS
     aubo_msgs 
     moveit_core
@@ -29,6 +28,7 @@ find_package(Eigen REQUIRED)
 include_directories(SYSTEM ${Boost_INCLUDE_DIR} ${EIGEN_INCLUDE_DIRS})
 include_directories(${catkin_INCLUDE_DIRS})
 link_directories(${catkin_LIBRARY_DIRS})
+
 
 add_subdirectory(trajectory_gen)
 add_subdirectory(trajectory_goal)
