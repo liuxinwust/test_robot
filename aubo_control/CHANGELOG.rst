@@ -2,6 +2,13 @@
 Changelog for package aubo_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* use lib32 and lib63 to make compitable with i686 and x86_64 system
+* update aubo_control CMakeList.txt
+* compatible with 32bit and 64 bit system.
+* Contributors: robot
+
 0.1.2 (2016-09-30)
 ------------------
 * fixed a lib path bug

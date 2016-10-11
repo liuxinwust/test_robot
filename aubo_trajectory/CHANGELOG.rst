@@ -2,6 +2,9 @@
 Changelog for package aubo_trajectory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.2 (2016-09-30)
 ------------------
 * fixed a lib path bug
