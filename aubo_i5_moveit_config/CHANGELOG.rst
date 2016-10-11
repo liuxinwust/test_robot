@@ -2,6 +2,9 @@
 Changelog for package aubo_i5_moveit_config
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.2.0 (2016-10-11)
 ------------------
 

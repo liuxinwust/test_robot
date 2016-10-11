@@ -6,7 +6,7 @@ This repo holds source code for ROS versions Indigo.
 
 __Operating System Install__  
 
-Operating system version is not less than Ubuntu linux 14.04, some Libs and API supports 64bit interface.
+Operating system version is not less than Ubuntu linux 14.04, both supports 32bit and 64bit system.
 Ubuntu Linux download:http://www.ubuntu.com/download/
 
 __Peak_Can drive Install__  
