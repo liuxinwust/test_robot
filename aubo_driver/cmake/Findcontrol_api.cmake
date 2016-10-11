@@ -8,18 +8,27 @@ find_path(libcontrolAPI_INCLUDE_DIR
 	      $ENV{INCLUDE}
 )
 
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+	find_library(libcontrolAPI
+		NAMES controlAPI
+		PATHS ${PROJECT_SOURCE_DIR}/lib/lib64
+	)
 
+	find_library(libev
+		NAMES ev
+		PATHS ${PROJECT_SOURCE_DIR}/lib/lib64
+	)
+else()
+        find_library(libcontrolAPI
+                NAMES controlAPI
+                PATHS ${PROJECT_SOURCE_DIR}/lib/lib32
+        )
 
-find_library(libcontrolAPI
-	NAMES controlAPI
-	PATHS ${PROJECT_SOURCE_DIR}/lib
-)
-
-find_library(libev
-	NAMES ev
-	PATHS ${PROJECT_SOURCE_DIR}/lib
-)
-
+        find_library(libev
+                NAMES ev
+                PATHS ${PROJECT_SOURCE_DIR}/lib/lib32
+        )
+endif()
 
 
 set(libcontrolAPI_INCLUDE_DIRS ${libcontrolAPI_INCLUDE_DIR})
