@@ -66,6 +66,9 @@ __Usage with control real robot use TCP/IP Server__
 ```rosrun aubo_control control_panel```
 
    Choose TCP/IP Mode, we can adjust 6 joints position with press button "+" and "-",and also you can choose classic position. Then, push button "sendGoal".
+   
+3.Further,if you want to see rviz synchronize with real robot,then run command:
+```rosrun aubo_control real_state_rviz```
 
 
 
