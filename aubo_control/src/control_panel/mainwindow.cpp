@@ -20,8 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
     joints.data.resize(6);
     Control_Mode = 1;
     Send_Goal = 0;
-    ui->rbx_pcan->setChecked(true);
-    ui->rbx_moveit->setChecked(false);
+    ui->rbx_pcan->setChecked(false);
+    ui->rbx_moveit->setChecked(true);
     ui->rbx_tcp->setChecked(false);
     ui->pbn_setIO->setEnabled(false);
 }

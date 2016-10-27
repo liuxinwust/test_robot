@@ -60,16 +60,16 @@ __Usage with control real robot use TCP/IP Server__
 1.Firstly,check the Robot Controller's IP address,for example 192.168.1.34,then ping 192.168.1.34,make sure is connected. run command line like this:
 
 ```roslaunch aubo_driver aubo_i5_bringup.launch robot_ip:=192.168.1.34```
+  
+   other,if you don't ned Rviz,you can run this:
+
+```rosrun aubo_driver aubo_driver 192.168.1.34 8887```
 
 2.A simple gui tool based Qt5,can control the robot to predefined positions can be executed like this:
 
 ```rosrun aubo_control control_panel```
 
    Choose TCP/IP Mode, we can adjust 6 joints position with press button "+" and "-",and also you can choose classic position. Then, push button "sendGoal".
-   
-3.Further,if you want to see rviz synchronize with real robot,then run command:
-```rosrun aubo_control real_state_rviz```
-
 
 
 __MoveIt! with a simulated robot in Gazebo__ 

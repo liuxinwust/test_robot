@@ -140,7 +140,7 @@ void AuboDriver::chatterCallback1(const std_msgs::Float32MultiArray::ConstPtr &m
 
         if(reverse_connected_)
         {
-           movej(pos,6,2000,2000);
+           movej(pos,6,1000,1000);
         }
     }
 
@@ -203,12 +203,12 @@ int main(int argc, char **argv) {
 		}
         else
 		{
-            reverse_port = 8877;
+            reverse_port = 8887;
 		}
 
 		if((reverse_port <= 0) or (reverse_port >= 65535)) {
             ROS_WARN("Reverse port value is not valid (Use number between 1 and 65534. Using default value of 8887");
-            reverse_port = 8877;
+            reverse_port = 8887;
 		}
 	} 
 

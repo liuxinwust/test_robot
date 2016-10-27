@@ -6,7 +6,7 @@
 <launch>
   <!-- robot_ip: IP-address of the robot's socket-messaging server -->
   <arg name="robot_ip"/>
-  <arg name="reverse_port" default="8877"/>
+  <arg name="reverse_port" default="8887"/>
  
   <!-- robot model -->
   <include file="$(find aubo_description)/launch/aubo_i5_rviz.launch"/>
@@ -16,7 +16,7 @@
 
 
   <!-- Convert robot real joint states to /tf tranforms -->
-  <node name="real_state_publish" pkg="aubo_control" type="real_state_publish"/>
+  <node name="real_state_rviz" pkg="aubo_control" type="real_state_rviz"/>
 
 </launch>
 
