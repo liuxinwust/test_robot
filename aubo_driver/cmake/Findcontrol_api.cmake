@@ -3,7 +3,7 @@
 
 
 find_path(libcontrolAPI_INCLUDE_DIR
-	NAMES aubo_control_api.h
+	NAMES our_control_api.h
 	PATHS ${PROJECT_SOURCE_DIR}/include/aubo_driver/control_api
 	      $ENV{INCLUDE}
 )

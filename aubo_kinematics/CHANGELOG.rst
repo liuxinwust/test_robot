@@ -2,6 +2,9 @@
 Changelog for package aubo_kinematics
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.2.1 (2016-10-11)
 ------------------
 

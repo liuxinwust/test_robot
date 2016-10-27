@@ -4,8 +4,9 @@
 
 
 std_msgs::Float32MultiArray joints;
+aubo_msgs::IOState iostate;
 
-int Control_Mode = 0;
+int Control_Mode = 1;
 int Send_Goal = 0;
 
 
@@ -17,11 +18,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     joints.data.resize(6);
-    Control_Mode = 0;
+    Control_Mode = 1;
     Send_Goal = 0;
     ui->rbx_pcan->setChecked(true);
     ui->rbx_moveit->setChecked(false);
     ui->rbx_tcp->setChecked(false);
+    ui->pbn_setIO->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -252,6 +254,7 @@ void MainWindow::on_rbx_pcan_clicked()
     ui->rbx_pcan->setChecked(true);
     ui->rbx_moveit->setChecked(false);
     ui->rbx_tcp->setChecked(false);
+    ui->pbn_setIO->setEnabled(false);
     Control_Mode = 0;
 }
 
@@ -261,17 +264,30 @@ void MainWindow::on_rbx_moveit_clicked()
     ui->rbx_pcan->setChecked(false);
     ui->rbx_moveit->setChecked(true);
     ui->rbx_tcp->setChecked(false);
+    ui->pbn_setIO->setEnabled(false);
     Control_Mode = 1;
 
 }
-
 
 void MainWindow::on_rbx_tcp_clicked()
 {
     ui->rbx_pcan->setChecked(false);
     ui->rbx_moveit->setChecked(false);
     ui->rbx_tcp->setChecked(true);
+    ui->pbn_setIO->setEnabled(true);
     Control_Mode = 2;
 }
+
+void MainWindow::on_pbn_setIO_clicked()
+{
+    iostate.type = ui->le_ioType->text().toInt();
+    iostate.mode = ui->le_ioMode->text().toInt();
+    iostate.index = ui->le_ioIndex->text().toInt();
+    iostate.state = ui->le_ioValue->text().toDouble();
+    Control_Mode = 2;
+    Send_Goal = 2;
+}
+
+
 
 

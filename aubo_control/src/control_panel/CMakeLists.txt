@@ -30,4 +30,4 @@ add_executable(control_panel
 	       ${ui_FILES})
 
 #Link the helloworld executable to the Qt 5 widgets library.
-target_link_libraries(control_panel Qt5::Widgets ${catkin_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${libOURAPI_LIBS})
+target_link_libraries(control_panel Qt5::Widgets ${catkin_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})

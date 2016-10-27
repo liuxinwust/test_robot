@@ -5,6 +5,7 @@
 
 pthread_t tid;
 extern std_msgs::Float32MultiArray joints;
+extern aubo_msgs::IOState iostate;
 extern int Control_Mode;
 extern int Send_Goal;
 
@@ -23,6 +24,7 @@ void *thread_caller(void *arg)
     ros::NodeHandle nh;
     ros::Publisher command_pub = nh.advertise<std_msgs::Float32MultiArray> ("movej_cmd", 1000);
     ros::Publisher goal = nh.advertise<std_msgs::Float32MultiArray> ("send_goal", 1);
+    ros::Publisher io_cmd = nh.advertise<aubo_msgs::IOState> ("io_state",1);
 
     ros::Rate loop_rate(100);//Hz
 
@@ -46,6 +48,11 @@ void *thread_caller(void *arg)
           {
             command_pub.publish(joints);
           }
+          else if(Send_Goal == 2)
+          {
+            io_cmd.publish(iostate);
+          }
+
           Send_Goal = 0;
       }
 

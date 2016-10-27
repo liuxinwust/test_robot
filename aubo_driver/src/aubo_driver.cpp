@@ -1,5 +1,6 @@
 #include "aubo_driver/aubo_driver.h"
-#include "aubo_control_api.h"
+#include "our_control_api.h"
+
 
 double last_road_point[6];
 
@@ -27,6 +28,62 @@ int road_point_compare(double *goal)
 
   return ret;
 }
+
+
+int connect_server(const char * server_ip, int server_port)
+{
+    int ret = -1;
+	
+    ret= login(server_ip, server_port,"123","123", 3000);
+    if(ret == 0)
+    {
+       init_move_profile();
+    }
+    return ret;
+}
+
+int disconnect_server()
+{
+    int ret = -1;
+    ret =logout();
+    return ret;
+}
+
+
+int get_current_position(double *pos)
+{
+    int ret = -1;
+    our_robot_road_point road_point;
+    ret = get_robot_current_position(&road_point);
+    if(ret == 0)
+    {
+    	pos[0] = road_point.joint_pos[0];
+        pos[1] = road_point.joint_pos[1];
+        pos[2] = road_point.joint_pos[2];
+        pos[3] = road_point.joint_pos[3];
+        pos[4] = road_point.joint_pos[4];
+        pos[5] = road_point.joint_pos[5];
+    }
+
+    return ret;
+}
+
+/*see enum type define: io_type,io_mode in ourcontrol.h*/
+int  set_robot_io(int io_type,int io_mode, int io_index, double io_value)
+{
+   int ret = -1;
+   ret = set_robot_one_io_status((our_contorl_io_type)io_type,(our_contorl_io_mode)io_mode, io_index, io_value);
+   return ret;
+}
+
+/*see enum type define: io_type,io_mode in ourcontrol.h*/
+double get_robot_io(int  io_type,int io_mode, int io_index)
+{
+   double io_value;
+   io_value = get_robot_one_io_status((our_contorl_io_type)io_type,(our_contorl_io_mode)io_mode, io_index);
+   return io_value;    
+}
+
 
 AuboDriver::AuboDriver(std::string host,unsigned int reverse_port)
 {
@@ -74,16 +131,16 @@ void AuboDriver::chatterCallback1(const std_msgs::Float32MultiArray::ConstPtr &m
 
     if(road_point_compare(pos))
     {
-        pos[0] = msg->data[0]*180.0/M_PI;
-        pos[1] = msg->data[1]*180.0/M_PI;
-        pos[2] = msg->data[2]*180.0/M_PI;
-        pos[3] = msg->data[3]*180.0/M_PI;
-        pos[4] = msg->data[4]*180.0/M_PI;
-        pos[5] = msg->data[5]*180.0/M_PI;
+        pos[0] = msg->data[0];
+        pos[1] = msg->data[1];
+        pos[2] = msg->data[2];
+        pos[3] = msg->data[3];
+        pos[4] = msg->data[4];
+        pos[5] = msg->data[5];
 
         if(reverse_connected_)
         {
-           movej(pos,2000,2000);
+           movej(pos,6,2000,2000);
         }
     }
 
@@ -91,14 +148,15 @@ void AuboDriver::chatterCallback1(const std_msgs::Float32MultiArray::ConstPtr &m
 
 void AuboDriver::chatterCallback2(const aubo_msgs::IOState::ConstPtr &msg)
 {
-    ROS_INFO("[%d,%d,%f]", msg->type,msg->index,msg->state);
+    ROS_INFO("IO[%d,%d,%d,%f]", msg->type,msg->mode,msg->index,msg->state);
 
     if(reverse_connected_)
     {
         int io_type = msg->type ;
+	int io_mode = msg->mode;
         int io_index = msg->index;
         double io_state = msg->state;
-        set_robot_io(io_type, io_index,io_state);
+        set_robot_io((our_contorl_io_type)io_type, (our_contorl_io_mode)io_mode ,io_index,io_state);
     }
 
 }
@@ -156,7 +214,7 @@ int main(int argc, char **argv) {
 
 	AuboDriver auboDriver(host, reverse_port);
 
-    ros::AsyncSpinner spinner(3);
+    	ros::AsyncSpinner spinner(3);
 	spinner.start();
 
 	ros::waitForShutdown();

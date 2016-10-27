@@ -4,6 +4,7 @@
 #include  <QMainWindow>
 #include  <ros/ros.h>
 #include  <std_msgs/Float32MultiArray.h>
+#include  <aubo_msgs/IOState.h>
 
 namespace Ui {
 class MainWindow;
@@ -37,6 +38,9 @@ private slots:
     void on_rbx_pcan_clicked();
     void on_rbx_tcp_clicked();
     void on_rbx_moveit_clicked();
+
+    void on_pbn_setIO_clicked();
+
 
 private:
     Ui::MainWindow *ui;

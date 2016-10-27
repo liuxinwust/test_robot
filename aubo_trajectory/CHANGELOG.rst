@@ -2,6 +2,9 @@
 Changelog for package aubo_trajectory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.2.1 (2016-10-11)
 ------------------
 
