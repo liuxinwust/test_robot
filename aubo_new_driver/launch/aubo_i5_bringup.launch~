@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+  Usage:
+    aubo_i5_bringup.launch robot_ip:=<value>
+-->
+<launch>
+  
+  <!-- robot_ip: IP-address of the robot's socket-messaging server -->
+  <arg name="robot_ip"/>
+  <arg name="prefix" default="" />
+
+  <!-- robot model -->
+  <include file="$(find aubo_description)/launch/aubo_i5_upload.launch"/>
+  
+  <!-- aubo common -->
+  <include file="$(find aubo_new_driver)/launch/aubo_i5_common.launch">
+    <arg name="prefix"  value="$(arg prefix)" />
+    <arg name="robot_ip" value="$(arg robot_ip)"/>
+  </include>
+
+</launch>

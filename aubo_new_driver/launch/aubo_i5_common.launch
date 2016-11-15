@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+  Usage:
+    aubo_i5_common.launch robot_ip:=<value>
+-->
+<launch>
+  <!-- robot_ip: IP-address of the robot's socket-messaging server -->
+  <arg name="robot_ip" />
+  <arg name="prefix" default="" />
+  <arg name="servoj_time" default="0.024" />
+  <arg name="base_frame" default="$(arg prefix)base_Link" />
+  <arg name="tool_frame" default="$(arg prefix)tool0_controller" />
+    
+  <!-- The max_velocity parameter is only used for debugging in the aubo_driver. It's not related to actual velocity limits -->
+  <arg name="max_velocity" default="10.0"/> <!-- [rad/s] -->
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- driver -->
+  <node name="aubo_new_driver" pkg="aubo_new_driver" type="aubo_new_driver" output="screen">
+    <param name="prefix" type="str" value="$(arg prefix)" />
+    <param name="robot_ip_address" type="str" value="$(arg robot_ip)" />
+    <param name="max_velocity" type="double" value="$(arg max_velocity)" />
+    <param name="servoj_time" type="double" value="$(arg servoj_time)" />
+    <param name="base_frame" type="str" value="$(arg base_frame)"/>
+    <param name="tool_frame" type="str" value="$(arg tool_frame)"/>
+  </node>
+</launch>
