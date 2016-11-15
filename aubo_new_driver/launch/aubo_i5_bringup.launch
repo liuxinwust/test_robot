@@ -11,14 +11,13 @@
 
   <!-- robot model -->
   <include file="$(find aubo_description)/launch/aubo_i5_upload.launch"/>
-  
+
+
   <!-- aubo common -->
   <include file="$(find aubo_new_driver)/launch/aubo_i5_common.launch">
     <arg name="prefix"  value="$(arg prefix)" />
     <arg name="robot_ip" value="$(arg robot_ip)"/>
   </include>
 
-  <node
-    name="rviz" pkg="rviz" type="rviz" args="-d $(find aubo_description)/aubo_i5.rviz" />
-
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find aubo_description)/aubo_i5.rviz" />
 </launch>

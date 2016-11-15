@@ -1,5 +1,5 @@
-#ifndef ROBOT_STATE_RT_H_
-#define ROBOT_STATE_RT_H_
+#ifndef ROBOT_STATE_H_
+#define ROBOT_STATE_H_
 
 #include <inttypes.h>
 #include <vector>
@@ -9,68 +9,46 @@
 #include <netinet/in.h>
 #include <condition_variable>
 
-class RobotStateRT {
+class RobotState{
 private:
-	std::vector<double> q_target_; //Target joint positions
-	std::vector<double> qd_target_; //Target joint velocities
-	std::vector<double> i_target_; //Target joint currents
-	std::vector<double> m_target_; //Target joint moments (torques)
-	std::vector<double> q_actual_; //Actual joint positions
-	std::vector<double> qd_actual_; //Actual joint velocities
-	std::vector<double> i_actual_; //Actual joint currents
-	std::vector<double> tool_vector_actual_; //Actual Cartesian coordinates of the tool: (x,y,z,rx,ry,rz), where rx, ry and rz is a rotation vector representation of the tool orientation
-	std::vector<double> tcp_speed_actual_; //Actual speed of the tool given in Cartesian coordinates
-	std::vector<double> tcp_force_; //Generalised forces in the TC
-	std::vector<double> tool_vector_target_; //Target Cartesian coordinates of the tool: (x,y,z,rx,ry,rz), where rx, ry and rz is a rotation vector representation of the tool orientation
-	std::vector<double> tcp_speed_target_; //Target speed of the tool given in Cartesian coordinates
-	std::vector<bool> digital_input_bits_; //Current state of the digital inputs. NOTE: these are bits encoded as int64_t, e.g. a value of 5 corresponds to bit 0 and bit 2 set high
-	std::vector<double> motor_temperatures_; //Temperature of each joint in degrees celsius
-	
-	double v_robot_; //Matorborad: Robot voltage (48V)
-	double i_robot_; //Masterboard: Robot current
-	std::vector<double> v_actual_; //Actual joint voltages
+	std::vector<double> joint_position_actual_; //Actual joint positions
+	std::vector<double> joint_velocity_actual_; //Actual joint velocity
+	std::vector<double> tool_position_actual_; //Actual Cartesian coordinates of the tool: (x,y,z)
+	std::vector<double> tool_orientation_actual_; //Actual Cartesian orientation of the tool: (w,x,y,z)
+	std::vector<double> joint_temperatures_actual_; //Temperature of each joint in degrees celsius
+	std::vector<double> joint_current_actual_; //Current of each joint
+	std::vector<double> joint_voltage_actual_; //Voltage of each joint
+	std::vector<double> tcp_force_actual_; //Actual tcp force
 
+	double end_speed_actual_; //Actual speed of the tool given in Cartesian coordinates
+
+	
 	std::mutex val_lock_; // Locks the variables while unpack parses data;
 
 	std::condition_variable* pMsg_cond_; //Signals that new vars are available
 	bool data_published_; //to avoid spurious wakes
 	bool controller_updated_; //to avoid spurious wakes
 
-	std::vector<double> unpackVector(uint8_t * buf, int start_index,
-			int nr_of_vals);
-	std::vector<bool> unpackDigitalInputBits(int64_t data);
-	double ntohd(uint64_t nf);
-
 public:
-	RobotStateRT(std::condition_variable& msg_cond);
-	~RobotStateRT();
+	RobotState(std::condition_variable& msg_cond);
+	~RobotState();
 
-	std::vector<double> getQTarget();
-	std::vector<double> getQdTarget();
-	std::vector<double> getITarget();
-	std::vector<double> getMTarget();
-	std::vector<double> getQActual();
-	std::vector<double> getQdActual();
-	std::vector<double> getIActual();
-	std::vector<double> getIControl();
-	std::vector<double> getToolVectorActual();
-	std::vector<double> getTcpSpeedActual();
+	std::vector<double> getJonitPosition();
+	std::vector<double> getJonitVelocity();
 	std::vector<double> getTcpForce();
-	std::vector<double> getToolVectorTarget();
-	std::vector<double> getTcpSpeedTarget();
-	std::vector<bool> getDigitalInputBits();
-	std::vector<double> getMotorTemperatures();
+	std::vector<double> getToolPosition();
+	std::vector<double> getToolOrientation();
+	std::vector<double> getJointTemperatures();
+	std::vector<double> getJointCurrent();
+	std::vector<double> getJointVoltage();
 
-	double getVMain();
-	double getVRobot();
-	double getIRobot();
+	double getEndSpeed();
 
 	void setDataPublished();
 	bool getDataPublished();
 	bool getControllerUpdated();
 	void setControllerUpdated();
-	std::vector<double> getVActual();
 	void unpack(uint8_t * buf);
 };
 
-#endif /* ROBOT_STATE_RT_H_ */
+#endif /* ROBOT_STATE_H_ */

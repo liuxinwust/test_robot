@@ -43,8 +43,6 @@ include_directories(
 SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 message(STATUS " CMAKE_MODULE_PATH  ${CMAKE_MODULE_PATH}")
 
-
-add_subdirectory(src/control_panel)
 add_subdirectory(src/joint_control_pcan)
 add_subdirectory(src/joint_state_sub)
 add_subdirectory(src/real_state_rviz)

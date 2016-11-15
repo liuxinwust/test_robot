@@ -34,11 +34,9 @@ include_directories(${catkin_INCLUDE_DIRS})
 link_directories(${catkin_LIBRARY_DIRS})
 
 
+add_subdirectory(trajectory_client)
 add_subdirectory(trajectory_gen)
 add_subdirectory(trajectory_goal)
-add_subdirectory(trajectory_client)
-add_subdirectory(sub_move_to_rviz)
-add_subdirectory(sub_jointstate_to_move)
 
 
 

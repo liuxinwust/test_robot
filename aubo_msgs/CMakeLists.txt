@@ -42,16 +42,17 @@ find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
 ## Generate messages in the 'msg' folder
 add_message_files(
    FILES
+   GoalPos.msg
    IOState.msg
    JointPos.msg
    TraPoint.msg
  )
 
 ## Generate services in the 'srv' folder
-#add_service_files(
-#   FILES
-#   SetIO.srv
-#)
+add_service_files(
+   FILES
+   SetIO.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(

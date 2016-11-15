@@ -1,6 +1,0 @@
-int8 type
-int8 mode
-int8 index
-float32 state
----
-bool success

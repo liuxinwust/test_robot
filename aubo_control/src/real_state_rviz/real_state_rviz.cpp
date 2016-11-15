@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 	ros::Subscriber sub1 = n.subscribe("current_pos", 1000, chatterCallback1);
 
 	tf::TransformBroadcaster broadcaster;
-	ros::Rate loop_rate(40);//
+    ros::Rate loop_rate(10);//
 
 	const double degree = M_PI/180;
 	// robot state
@@ -75,8 +75,8 @@ int main(int argc, char** argv)
 		odom_trans.transform.translation.z = 0.0;
 		odom_trans.transform.rotation = tf::createQuaternionMsgFromYaw(angle);
 		//send the joint state and transform
-		joint_pub.publish(joint_state);
-		//broadcaster.sendTransform(odom_trans);
+        joint_pub.publish(joint_state);
+        //broadcaster.sendTransform(odom_trans);
 
 		// Create new robot state
 		wrist3_wrist2  += wrist3_wrist2_inc;

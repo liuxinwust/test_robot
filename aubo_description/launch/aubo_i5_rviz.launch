@@ -13,5 +13,9 @@
     name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
  
   <node
-    name="rviz" pkg="rviz" type="rviz" args="-d $(find urdf_tutorial)/urdf.rviz" />
+    name="rviz" pkg="rviz" type="rviz" args="-d $(find aubo_description)/aubo_i5.rviz" />
+
+ <!-- Convert robot real joint states to /tf tranforms -->
+  <node name="real_state_rviz" pkg="aubo_control" type="real_state_rviz"/>
+
 </launch>

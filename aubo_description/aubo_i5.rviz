@@ -80,11 +80,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        pedestal_Link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         s_Link:
           Alpha: 1
           Show Axes: false
@@ -153,8 +148,6 @@ Visualization Manager:
           Value: true
         foreArm_Link:
           Value: true
-        pedestal_Link:
-          Value: true
         s_Link:
           Value: true
         shoulder_Link:
@@ -183,8 +176,6 @@ Visualization Manager:
       Tree:
         world:
           base_Link:
-            pedestal_Link:
-              {}
             shoulder_Link:
               s_Link:
                 {}
@@ -264,5 +255,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1216
-  X: 267
-  Y: 150
+  X: 237
+  Y: 120

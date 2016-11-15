@@ -110,10 +110,10 @@ void AuboHardwareInterface::init() {
 
 void AuboHardwareInterface::read() {
 	std::vector<double> pos, vel, current, tcp;
-	pos = robot_->rt_interface_->robot_state_->getQActual();
-	vel = robot_->rt_interface_->robot_state_->getQdActual();
-	current = robot_->rt_interface_->robot_state_->getIActual();
-	tcp = robot_->rt_interface_->robot_state_->getTcpForce();
+    pos = robot_->rt_interface_->robot_state_->getJonitPosition();
+    vel = robot_->rt_interface_->robot_state_->getJonitVelocity();
+    current = robot_->rt_interface_->robot_state_->getJointCurrent();
+    tcp = robot_->rt_interface_->robot_state_->getTcpForce();
 	for (std::size_t i = 0; i < num_joints_; ++i) {
 		joint_position_[i] = pos[i];
 		joint_velocity_[i] = vel[i];
@@ -144,7 +144,7 @@ void AuboHardwareInterface::write() {
 			}
 			prev_joint_velocity_command_[i] = cmd[i];
 		}
-		/////robot_->setSpeed(cmd[0], cmd[1], cmd[2], cmd[3], cmd[4], cmd[5],  max_vel_change_*125);
+        robot_->setSpeed(cmd[0], cmd[1], cmd[2], cmd[3], cmd[4], cmd[5],  max_vel_change_*125);
     }
     else if (position_interface_running_) {
         robot_->servoj(joint_position_command_);

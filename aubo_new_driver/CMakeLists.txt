@@ -203,10 +203,12 @@ install(DIRECTORY include/${PROJECT_NAME}/
 )
 
 
-install(PROGRAMS test_move.py
+install(PROGRAMS test/test_move.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
+
+add_subdirectory(test)
 
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)

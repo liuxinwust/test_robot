@@ -76,7 +76,7 @@ class RobotArm
          goal.trajectory.points[0].velocities.resize(6);
          for (size_t j = 0; j < 6; ++j)
          {
-           goal.trajectory.points[0].velocities[j] = 1.0;
+           goal.trajectory.points[0].velocities[j] = 0.001;
          }
 
 
@@ -135,7 +135,7 @@ class RobotArm
        goal.trajectory.points[ind].velocities.resize(6);
        for (size_t j = 0; j < 6; ++j)
        {
-         goal.trajectory.points[ind].velocities[j] = 0.5;
+         goal.trajectory.points[ind].velocities[j] = 0.0;
        }
 
 

@@ -10,6 +10,7 @@ find_package(catkin REQUIRED)
 # find_package(Boost REQUIRED COMPONENTS system)
 
 
+
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
@@ -97,10 +98,12 @@ find_package(catkin REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES our_description
-#  CATKIN_DEPENDS other_catkin_pkg
+#  LIBRARIES hello_world
+#  CATKIN_DEPENDS roscpp rospy std_msgs sensor_msgs
 #  DEPENDS system_lib
 )
+
+
 
 ###########
 ## Build ##
@@ -183,3 +186,4 @@ install(DIRECTORY meshes DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+

@@ -38,15 +38,17 @@ private:
         
   	ros::NodeHandle nh;
         ros::Publisher  pos_pub;
-	ros::Subscriber sub;
+	ros::Subscriber sub1;
 	ros::Subscriber sub2;
+	ros::Subscriber sub3;
 	ros::Timer timer;
 public:
 	
 	AuboDriver(std::string host,unsigned int reverse_port = 8887);
 
 	void chatterCallback1(const std_msgs::Float32MultiArray::ConstPtr &msg);
-	void chatterCallback2(const aubo_msgs::IOState::ConstPtr &msg);
+	void chatterCallback2(const std_msgs::Float32MultiArray::ConstPtr &msg);
+	void chatterCallback3(const aubo_msgs::IOState::ConstPtr &msg);
         void timerCallback(const ros::TimerEvent& e);
 
 	

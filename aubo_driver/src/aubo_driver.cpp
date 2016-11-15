@@ -34,10 +34,11 @@ int connect_server(const char * server_ip, int server_port)
 {
     int ret = -1;
 	
-    ret= login(server_ip, server_port,"123","123", 3000);
+    ret= login(server_ip, server_port,"123","123");
     if(ret == 0)
     {
-       init_move_profile();
+       init_move_profile_for_script();
+       set_enable_block(false);
     }
     return ret;
 }
@@ -45,7 +46,7 @@ int connect_server(const char * server_ip, int server_port)
 int disconnect_server()
 {
     int ret = -1;
-    ret =logout();
+    ret =logout_system();
     return ret;
 }
 
@@ -54,7 +55,7 @@ int get_current_position(double *pos)
 {
     int ret = -1;
     our_robot_road_point road_point;
-    ret = get_robot_current_position(&road_point);
+    ret = get_robot_position(&road_point);
     if(ret == 0)
     {
     	pos[0] = road_point.joint_pos[0];
@@ -72,7 +73,7 @@ int get_current_position(double *pos)
 int  set_robot_io(int io_type,int io_mode, int io_index, double io_value)
 {
    int ret = -1;
-   ret = set_robot_one_io_status((our_contorl_io_type)io_type,(our_contorl_io_mode)io_mode, io_index, io_value);
+   ret = set_single_io_status((our_contorl_io_type)io_type,(our_contorl_io_mode)io_mode, io_index, io_value);
    return ret;
 }
 
@@ -80,7 +81,7 @@ int  set_robot_io(int io_type,int io_mode, int io_index, double io_value)
 double get_robot_io(int  io_type,int io_mode, int io_index)
 {
    double io_value;
-   io_value = get_robot_one_io_status((our_contorl_io_type)io_type,(our_contorl_io_mode)io_mode, io_index);
+   get_single_io_status((our_contorl_io_type)io_type,(our_contorl_io_mode)io_mode, io_index,&io_value);
    return io_value;    
 }
 
@@ -109,8 +110,9 @@ AuboDriver::AuboDriver(std::string host,unsigned int reverse_port)
     timer.stop();
 
     pos_pub = nh.advertise<aubo_msgs::JointPos>("current_pos", 1);
-    sub = nh.subscribe("movej_cmd", 1000, &AuboDriver::chatterCallback1,this);
-    sub2 = nh.subscribe("io_state", 1, &AuboDriver::chatterCallback2,this);
+    sub1 = nh.subscribe("movej_cmd", 1000, &AuboDriver::chatterCallback1,this);
+    sub2 = nh.subscribe("servoj_cmd", 1, &AuboDriver::chatterCallback2,this);
+    sub3 = nh.subscribe("io_state", 1, &AuboDriver::chatterCallback3,this);
 
     timer.start();
 }
@@ -140,20 +142,50 @@ void AuboDriver::chatterCallback1(const std_msgs::Float32MultiArray::ConstPtr &m
 
         if(reverse_connected_)
         {
-           movej(pos,6,1000,1000);
+           robot_moveJ_for_script(pos,6,1000,1000);
         }
     }
 
 }
 
-void AuboDriver::chatterCallback2(const aubo_msgs::IOState::ConstPtr &msg)
+
+void AuboDriver::chatterCallback2(const std_msgs::Float32MultiArray::ConstPtr &msg)
+{
+    //ROS_INFO("goal=[%f,%f,%f,%f,%f,%f]",msg->data[0],msg->data[1],msg->data[2],msg->data[3],msg->data[4],msg->data[5]);
+
+    double pos[6];
+    pos[0] = msg->data[0];
+    pos[1] = msg->data[1];
+    pos[2] = msg->data[2];
+    pos[3] = msg->data[3];
+    pos[4] = msg->data[4];
+    pos[5] = msg->data[5];
+
+
+    if(road_point_compare(pos))
+    {
+        pos[0] = msg->data[0];
+        pos[1] = msg->data[1];
+        pos[2] = msg->data[2];
+        pos[3] = msg->data[3];
+        pos[4] = msg->data[4];
+        pos[5] = msg->data[5];
+
+        if(reverse_connected_)
+        {
+           robot_servoj(pos,6);
+        }
+    }
+}
+
+void AuboDriver::chatterCallback3(const aubo_msgs::IOState::ConstPtr &msg)
 {
     ROS_INFO("IO[%d,%d,%d,%f]", msg->type,msg->mode,msg->index,msg->state);
 
     if(reverse_connected_)
     {
         int io_type = msg->type ;
-	int io_mode = msg->mode;
+        int io_mode = msg->mode;
         int io_index = msg->index;
         double io_state = msg->state;
         set_robot_io((our_contorl_io_type)io_type, (our_contorl_io_mode)io_mode ,io_index,io_state);
@@ -175,6 +207,7 @@ void AuboDriver::timerCallback(const ros::TimerEvent& e)
         cur_pos.joint4 = pos[3];
         cur_pos.joint5 = pos[4];
         cur_pos.joint6 = pos[5];
+
         pos_pub.publish(cur_pos);
     }
 }
@@ -214,7 +247,7 @@ int main(int argc, char **argv) {
 
 	AuboDriver auboDriver(host, reverse_port);
 
-    	ros::AsyncSpinner spinner(3);
+    ros::AsyncSpinner spinner(6);
 	spinner.start();
 
 	ros::waitForShutdown();

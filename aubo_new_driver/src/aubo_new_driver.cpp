@@ -85,7 +85,7 @@ void AuboNewDriver::servoj(std::vector<double> positions, int keepalive) {
     char buf[1024];
 
     sprintf(buf,"{\"command\":\"servoj\",\"data\":{\"joint1\":%f,\"joint2\":%f,\"joint3\":%f,\"joint4\":%f,\"joint5\":%f,\"joint6\":%f}}\n",positions[0],positions[1],positions[2],positions[3],positions[4],positions[5]);
-    //print_info((std::string)buf);
+    print_info((std::string)buf);
     rt_interface_->addCommandToQueue((std::string)buf);
 }
 
@@ -98,86 +98,64 @@ void AuboNewDriver::setSpeed(double q0, double q1, double q2, double q3, double 
 
 
 
-
-
 /************************Aubo plan and move API*****************************/
 void AuboNewDriver::initMoveProfile() {
     rt_interface_->addCommandToQueue("{\"command\":\"initMoveProfile\"}\n");
 }
 
+void AuboNewDriver::setBlock(bool flag) {
+    char buf[128];
+    sprintf(buf, "{\"command\":\"enableBlock\",\"data\":{\"value\":%s}}\n",flag ? "true" : "false");
+    //print_info((std::string)buf);
+    rt_interface_->addCommandToQueue(buf);
+}
+
 void AuboNewDriver::setMaxSpeed(double speed){
-    if (!reverse_connected_) {
-        print_error("AuboNewDriver::setMaxSpeed called without a reverse connection present.");
-        return;
-    }
+
     char cmd[1024];
     sprintf(cmd,"{\"command\":\"setSpeed\",\"data\":{\"value\":%f}}\n",speed);
     rt_interface_->addCommandToQueue((std::string) (cmd));
 }
 
 void AuboNewDriver::setMaxAcc(double acc){
-    if (!reverse_connected_) {
-        print_error("AuboNewDriver::setMaxAcc called without a reverse connection present.");
-        return;
-    }
+
     char cmd[1024];
     sprintf(cmd,"{\"command\":\"setAcce\",\"data\":{\"value\":%f}}\n",acc);
     rt_interface_->addCommandToQueue((std::string) (cmd));
 }
 
-void AuboNewDriver::movej(std::vector<double> positions, int keepalive) {
-    if (!reverse_connected_) {
-        print_error("AuboNewDriver::movej called without a reverse connection present. Keepalive: "
-                        + std::to_string(keepalive));
-        return;
-    }
+void AuboNewDriver::movej(std::vector<double> positions) {
 
     char buf[1024];
-
     sprintf(buf,"{\"command\":\"movej\",\"data\":{\"joint1\":%f,\"joint2\":%f,\"joint3\":%f,\"joint4\":%f,\"joint5\":%f,\"joint6\":%f}}\n",positions[0],positions[1],positions[2],positions[3],positions[4],positions[5]);
-    print_info((std::string)buf);
+    //print_info((std::string)buf);
     rt_interface_->addCommandToQueue((std::string)buf);
 }
 
-void AuboNewDriver::movel(std::vector<double> positions, int keepalive) {
-    if (!reverse_connected_) {
-        print_error("AuboNewDriver::movel called without a reverse connection present. Keepalive: "
-                        + std::to_string(keepalive));
-        return;
-    }
+void AuboNewDriver::movel(std::vector<double> positions) {
 
     char buf[1024];
 
     sprintf(buf,"{\"command\":\"movel\",\"data\":{\"joint1\":%f,\"joint2\":%f,\"joint3\":%f,\"joint4\":%f,\"joint5\":%f,\"joint6\":%f}}\n",positions[0],positions[1],positions[2],positions[3],positions[4],positions[5]);
-    print_info((std::string)buf);
+    //print_info((std::string)buf);
     rt_interface_->addCommandToQueue((std::string)buf);
 }
 
-void AuboNewDriver::movelTo(std::vector<double> positions, int keepalive) {
-    if (!reverse_connected_) {
-        print_error("AuboNewDriver::movelTo called without a reverse connection present. Keepalive: "
-                        + std::to_string(keepalive));
-        return;
-    }
+void AuboNewDriver::movelTo(std::vector<double> positions) {
 
     char buf[1024];
 
     sprintf(buf,"{\"command\":\"movelTo\",\"data\":{\"x\":%f,\"y\":%f,\"z\":%f}}\n",positions[0],positions[1],positions[2]);
-    print_info((std::string)buf);
+    //print_info((std::string)buf);
     rt_interface_->addCommandToQueue((std::string)buf);
 }
 
-void AuboNewDriver::addWayPoint(std::vector<double> positions, int keepalive) {
-    if (!reverse_connected_) {
-        print_error("AuboNewDriver::addWayPoint called without a reverse connection present. Keepalive: "
-                        + std::to_string(keepalive));
-        return;
-    }
+void AuboNewDriver::addWayPoint(std::vector<double> positions) {
 
     char buf[1024];
 
     sprintf(buf,"{\"command\":\"addWaypoint\",\"data\":{\"joint1\":%f,\"joint2\":%f,\"joint3\":%f,\"joint4\":%f,\"joint5\":%f,\"joint6\":%f}}\n",positions[0],positions[1],positions[2],positions[3],positions[4],positions[5]);
-    print_info((std::string)buf);
+    //print_info((std::string)buf);
     rt_interface_->addCommandToQueue((std::string)buf);
 }
 
@@ -190,9 +168,6 @@ void AuboNewDriver::movep(double blendRadius,int trackMode){
     sprintf(cmd,"{\"command\":\"movep\",\"data\":{\"blend_radius\":%f,\"track_mode\":%d}}\n",blendRadius,trackMode);
     rt_interface_->addCommandToQueue((std::string) (cmd));
 }
-
-
-
 
 void AuboNewDriver::getRobotPos() {
     rt_interface_->addCommandToQueue("{\"command\":\"getRobotPos\"}\n");
@@ -208,7 +183,7 @@ bool AuboNewDriver::openServo() {
 
 void AuboNewDriver::closeServo(std::vector<double> positions) {
 	if (positions.size() != 6)
-		AuboNewDriver::servoj(rt_interface_->robot_state_->getQActual(), 0);
+        AuboNewDriver::servoj(rt_interface_->robot_state_->getJonitPosition(), 0);
 	else
 		AuboNewDriver::servoj(positions, 0);
 
@@ -250,8 +225,9 @@ void AuboNewDriver::setRobotIO(int type, int mode,int index,float state) {
     char buf[256];
     sprintf(buf, "set_digital_out(%d, %d, %d, %f)\n", type, mode, index, state);
 
-    rt_interface_->addCommandToQueue(buf);
-    print_debug(buf);
+    //not implement yet
+    //rt_interface_->addCommandToQueue(buf);
+    //print_debug(buf);
 }
 
 

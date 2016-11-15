@@ -1,6 +1,6 @@
 #include <moveit/move_group_interface/move_group.h>
 #include <math.h>
-#include <std_msgs/Float32MultiArray.h>
+#include "aubo_msgs/GoalPoint.h"
 #include "aubo_msgs/TraPoint.h"
 #include "moveit_msgs/DisplayTrajectory.h"
 
@@ -73,7 +73,7 @@ int road_point_compare(double *goal)
   {
   	if(fabs(goal[i]-last_road_point[i])>0.001)
 	{
-           ret = 1;
+       ret = 1;
 	   break;
 	}    
   }
@@ -93,21 +93,24 @@ int road_point_compare(double *goal)
 }
  
 
-void chatterCallback(const std_msgs::Float32MultiArray::ConstPtr &msg)
+void chatterCallback(const aubo_msgs::GoalPoint::ConstPtr &msg)
 {
-  ROS_INFO("Callback1[%f,%f,%f,%f,%f,%f]",msg->data[0],msg->data[1],msg->data[2],msg->data[3],msg->data[4],msg->data[5]);
   double road[6];
+  int bus;
 
-  road[0] = msg->data[0];
-  road[1] = msg->data[1];
-  road[2] = msg->data[2];
-  road[3] = msg->data[3];
-  road[4] = msg->data[4];
-  road[5] = msg->data[5];
+  bus = msg->bus;
+
+  road[0] = msg->joint1;
+  road[1] = msg->joint2;
+  road[2] = msg->joint3;
+  road[3] = msg->joint4;
+  road[4] = msg->joint5;
+  road[5] = msg->joint6;
 
   if(road_point_compare(road))
   {
       goal_trajectory(road);
+      tra_point.bus = bus;
       tra_pub.publish(tra_point);
   }
 }

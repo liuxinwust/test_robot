@@ -70,12 +70,13 @@ public:
 
 	/************************Aubo plan and move API*****************************/
 	void initMoveProfile();
+	void setBlock(bool flag);
 	void setMaxSpeed(double speed);
 	void setMaxAcc(double acc);
-	void movej(std::vector<double> positions, int keepalive = 1);
-	void movel(std::vector<double> positions, int keepalive = 1);
-	void movelTo(std::vector<double> positions, int keepalive = 1);
-	void addWayPoint(std::vector<double> positions, int keepalive = 1);
+	void movej(std::vector<double> positions);
+	void movel(std::vector<double> positions);
+	void movelTo(std::vector<double> positions);
+	void addWayPoint(std::vector<double> positions);
 	void movep(double blendRadius,int trackMode);
 	/************************Aubo plan and move API*****************************/  
 };

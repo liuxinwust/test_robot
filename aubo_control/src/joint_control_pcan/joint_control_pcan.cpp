@@ -117,7 +117,7 @@ int main(int argc, char **argv)
 
     ros::Publisher state_pub = n.advertise<aubo_msgs::JointPos>("current_pos", 1);
 
-    ros::Subscriber cmd_sub = n.subscribe("movej_cmd", 1000 , chatterCallback);
+    ros::Subscriber cmd_sub = n.subscribe("pcan_cmd", 1000 , chatterCallback);
 
    
     while(ros::ok())

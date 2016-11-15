@@ -16,7 +16,7 @@
 
 
   <!-- Load hardware interface -->
-  <node name="aubo_hardware_interface" pkg="aubo_driver" type="aubo_driver" output="screen">
+  <node name="aubo_hardware_interface" pkg="aubo_new_driver" type="aubo_new_driver" output="screen">
     <param name="robot_ip_address" type="str" value="$(arg robot_ip)"/>
     <param name="use_ros_control" type="bool" value="true"/>
   </node>

@@ -29,13 +29,13 @@
         <joint name="shoulder_joint" value="0" />
         <joint name="upperArm_joint" value="1.5708" />
         <joint name="wrist1_joint" value="0" />
-        <joint name="wrist2_joint" value="-1.5708" />
+        <joint name="wrist2_joint" value="1.5708" />
         <joint name="wrist3_joint" value="0" />
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="movit_ee" parent_link="ee_Link" group="eff_group" />
+    <end_effector name="moveit_ee" parent_link="ee_Link" group="eff_group" />
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
-    <virtual_joint name="fixed_base" type="fixed" parent_frame="world" child_link="base_Link" />
+    <virtual_joint name="fixed_based" type="fixed" parent_frame="world" child_link="base_Link" />
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="base_Link" link2="f1_Link" reason="Never" />
     <disable_collisions link1="base_Link" link2="s_Link" reason="Never" />

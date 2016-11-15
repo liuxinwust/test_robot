@@ -3,7 +3,7 @@
 
 AuboRealtimeCommunication::AuboRealtimeCommunication(
         std::condition_variable& msg_cond, std::string host) {
-	robot_state_ = new RobotStateRT(msg_cond);
+    robot_state_ = new RobotState(msg_cond);
 	bzero((char *) &serv_addr_, sizeof(serv_addr_));
 	sockfd_ = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockfd_ < 0) {
@@ -89,12 +89,39 @@ void AuboRealtimeCommunication::setSpeed(double q0, double q1, double q2,
             "speedj([%1.5f, %1.5f, %1.5f, %1.5f, %1.5f, %1.5f], %f)\n",
             q0, q1, q2, q3, q4, q5, acc);
 
+    //not implement yet
+    //addCommandToQueue((std::string) (cmd));
+
+}
+
+void AuboRealtimeCommunication::setMessagePush(bool flag) {
+    char cmd[128];
+    sprintf(cmd, "{\"command\":\"enableMessagePush\",\"data\":{\"value\":%s}}\n",flag ? "true" : "false");
+    //print_info((std::string)buf);
     addCommandToQueue((std::string) (cmd));
 }
 
-void AuboRealtimeCommunication::getRobotState() {
-    char cmd[1024];
-    sprintf(cmd,"{\"command\":\"getRobotPos\"}");
+void AuboRealtimeCommunication::getRobotPosition() {
+    char cmd[128];
+    sprintf(cmd,"{\"command\":\"getRobotPos\"}\n");
+    addCommandToQueue((std::string) (cmd));
+}
+
+void AuboRealtimeCommunication::getRobotJointStatus() {
+    char cmd[128];
+    sprintf(cmd,"{\"command\":\"getRobotJointStatus\"}\n");
+    addCommandToQueue((std::string) (cmd));
+}
+
+void AuboRealtimeCommunication::getRobotSystemStatus() {
+    char cmd[128];
+    sprintf(cmd,"{\"command\":\"getRobotSystemStatus\"}\n");
+    addCommandToQueue((std::string) (cmd));
+}
+
+void AuboRealtimeCommunication::getRobotEndSpeed() {
+    char cmd[128];
+    sprintf(cmd,"{\"command\":\"getRobotEndSpeed\"}\n");
     addCommandToQueue((std::string) (cmd));
 }
 
@@ -109,15 +136,18 @@ void AuboRealtimeCommunication::run() {
 	FD_SET(sockfd_, &readfds);
 	print_debug("Realtime port: Got connection");
 	connected_ = true;
-    	int time = 0;
+    int time = 0;
+
+    setMessagePush(true);
 
 	while (keepalive_) {
 		while (connected_ && keepalive_) {
 
-			timeout.tv_sec = 0; //do this each loop as selects modifies timeout
-            timeout.tv_usec = 10000; // timeout of 0.5 sec
-			select(sockfd_ + 1, &readfds, NULL, NULL, &timeout);
+            timeout.tv_sec = 0; //do this each loop as selects modifies timeout
+            timeout.tv_usec = 200000; // timeout of 0.2 sec
+            select(sockfd_ + 1, &readfds, NULL, NULL, &timeout);
 
+            bzero(buf, 2048);
 
 			bytes_read = read(sockfd_, buf, 2048);
 
@@ -128,20 +158,21 @@ void AuboRealtimeCommunication::run() {
                 time = 0;
 				robot_state_->unpack(buf);
             }
-            else
+            else       
             {
                time = time + 1;
-               if(connected_ == true)
-               {
-                   getRobotState();
-               }
 
                if(time > 100)
                {
-                   //connected_ = false;
-                   //close(sockfd_);
+                   connected_ = false;
+                   close(sockfd_);
                    time  = 0;
                }
+            }
+
+            if(connected_ == true)
+            {
+                //getRobotPosition();
             }
 		}
 
@@ -177,13 +208,12 @@ void AuboRealtimeCommunication::run() {
                     print_error("Error re-connecting to RT port 8899. Is controller started? Will try to reconnect in 10 seconds...");
 				} else {
 					connected_ = true;
-                    getRobotState();
 					print_info("Realtime port: Reconnected");
 				}
 			}
 		}
 	}
-	/////setSpeed(0., 0., 0., 0., 0., 0.);
+    setSpeed(0.0, 0.0, 0.0, 0.0, 0.0, 0.0,100);
 	close(sockfd_);
 }
 

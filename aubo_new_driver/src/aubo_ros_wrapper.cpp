@@ -27,6 +27,7 @@
 #include "aubo_msgs/SetIOResponse.h"
 
 #include "std_msgs/String.h"
+#include "std_msgs/Float32MultiArray.h"
 #include <controller_manager/controller_manager.h>
 
 /// TF
@@ -46,6 +47,7 @@ protected:
 	control_msgs::FollowJointTrajectoryResult result_;
 	ros::Subscriber speed_sub_;
     ros::Subscriber script_sub_;
+    ros::Subscriber move_sub_;
 	ros::ServiceServer io_srv_;
 	std::thread* rt_publish_thread_;
 	double io_flag_delay_;
@@ -158,6 +160,9 @@ public:
             script_sub_ = nh_.subscribe("aubo_new_driver/aubo_script", 1,
                     &RosWrapper::scriptInterface, this);
 
+            move_sub_ = nh_.subscribe("movej_cmd", 1,
+                    &RosWrapper::moveInterface, this);
+
             io_srv_ = nh_.advertiseService("aubo_new_driver/set_io",
                     &RosWrapper::setIO, this);
 		}
@@ -262,9 +267,9 @@ private:
 					"Trajectory's first point should be the current position, with time_from_start set to 0.0 - Inserting point in malformed trajectory");
 			timestamps.push_back(0.0);
 			positions.push_back(
-					robot_.rt_interface_->robot_state_->getQActual());
+                    robot_.rt_interface_->robot_state_->getJonitPosition());
 			velocities.push_back(
-					robot_.rt_interface_->robot_state_->getQdActual());
+                    robot_.rt_interface_->robot_state_->getJonitVelocity());
 		}
 		for (unsigned int i = 0; i < goal.trajectory.points.size(); i++) {
 			timestamps.push_back(
@@ -386,7 +391,7 @@ private:
 	{
 		for (unsigned int i = 0; i < traj.points[0].positions.size(); i++)
 		{
-			std::vector<double> qActual = robot_.rt_interface_->robot_state_->getQActual();
+            std::vector<double> qActual = robot_.rt_interface_->robot_state_->getJonitPosition();
 			if( fabs(traj.points[0].positions[i] - qActual[i]) > eps )
 			{
 				return false;
@@ -442,8 +447,22 @@ private:
 
     void scriptInterface(const std_msgs::String::ConstPtr& msg) {
 
-        robot_.rt_interface_->addCommandToQueue(msg->data);
+        //not implement yet
+        //robot_.rt_interface_->addCommandToQueue(msg->data);
 
+    }
+
+    void moveInterface(const std_msgs::Float32MultiArray::ConstPtr& msg) {
+        std::vector<double> pos;
+        pos.push_back(msg->data[0]);
+        pos.push_back(msg->data[1]);
+        pos.push_back(msg->data[2]);
+        pos.push_back(msg->data[3]);
+        pos.push_back(msg->data[4]);
+        pos.push_back(msg->data[5]);
+
+        robot_.setBlock(false);
+        robot_.movej(pos);
     }
 
 	void rosControlLoop() {
@@ -451,14 +470,10 @@ private:
 		struct timespec last_time, current_time;
 		static const double BILLION = 1000000000.0;
 
+        ros::Rate loop_rate(100);
 
 		clock_gettime(CLOCK_MONOTONIC, &last_time);
 		while (ros::ok()) {
-			std::mutex msg_lock; // The values are locked for reading in the class, so just use a dummy mutex
-			std::unique_lock<std::mutex> locker(msg_lock);
-			while (!robot_.rt_interface_->robot_state_->getControllerUpdated()) {
-				rt_msg_cond_.wait(locker);
-			}
 
 			// Input
 			hardware_interface_->read();
@@ -472,13 +487,15 @@ private:
 
 			// Output
 			hardware_interface_->write();
+
+            loop_rate.sleep();
 		}
 	}
 
 	void publishRTMsg() {
 		ros::Publisher joint_pub = nh_.advertise<sensor_msgs::JointState>("joint_states", 1);
 		ros::Publisher wrench_pub = nh_.advertise<geometry_msgs::WrenchStamped>("wrench", 1);
-        ros::Publisher tool_vel_pub = nh_.advertise<geometry_msgs::TwistStamped>("tool_velocity", 1);
+        //ros::Publisher tool_vel_pub = nh_.advertise<geometry_msgs::TwistStamped>("tool_velocity", 1);
         static tf::TransformBroadcaster br;
 		while (ros::ok()) {
 			sensor_msgs::JointState joint_msg;
@@ -494,12 +511,12 @@ private:
 			}
 
 			joint_msg.header.stamp = ros::Time::now();
-            joint_msg.position = robot_.rt_interface_->robot_state_->getQActual();
+            joint_msg.position = robot_.rt_interface_->robot_state_->getJonitPosition();
 			for (unsigned int i = 0; i < joint_msg.position.size(); i++) {
 				joint_msg.position[i] += joint_offsets_[i];
 			}
-            joint_msg.velocity = robot_.rt_interface_->robot_state_->getQdActual();
-			joint_msg.effort = robot_.rt_interface_->robot_state_->getIActual();
+            joint_msg.velocity = robot_.rt_interface_->robot_state_->getJonitVelocity();
+            joint_msg.effort = robot_.rt_interface_->robot_state_->getJointCurrent();
 			joint_pub.publish(joint_msg);
 
             std::vector<double> tcp_force = robot_.rt_interface_->robot_state_->getTcpForce();
@@ -513,13 +530,19 @@ private:
 			wrench_pub.publish(wrench_msg);
 
 		    // Tool vector: Actual Cartesian coordinates of the tool: (x,y,z,rx,ry,rz), where rx, ry and rz is a rotation vector representation of the tool orientation
-		    std::vector<double> tool_vector_actual = robot_.rt_interface_->robot_state_->getToolVectorActual();
+            std::vector<double> tool_orientation = robot_.rt_interface_->robot_state_->getToolOrientation();
 
 		    //Create quaternion
 		    tf::Quaternion quat;
-		    double rx = tool_vector_actual[3];
-		    double ry = tool_vector_actual[4];
-		    double rz = tool_vector_actual[5];
+            double w = tool_orientation[0];
+            double x = tool_orientation[1];
+            double y = tool_orientation[2];
+            double z = tool_orientation[3];
+
+            double rx = atan2(2.0*(w*x+y*z),1-2.0*(x*x+y*y));
+            double ry = asin(2.0*(w*y-z*x));
+            double rz = atan2(2.0*(w*x+x*y),1-2.0*(y*y+z*z));
+
 		    double angle = std::sqrt(std::pow(rx,2) + std::pow(ry,2) + std::pow(rz,2));
 		    if (angle < 1e-16) {
             quat.setValue(0, 0, 0, 1);
@@ -528,13 +551,14 @@ private:
 		    }
 
 		    //Create and broadcast transform
+            std::vector<double> tool_position = robot_.rt_interface_->robot_state_->getToolPosition();
 		    tf::Transform transform;
-		    transform.setOrigin(tf::Vector3(tool_vector_actual[0], tool_vector_actual[1], tool_vector_actual[2]));
+            transform.setOrigin(tf::Vector3(tool_position[0], tool_position[1], tool_position[2]));
 		    transform.setRotation(quat);
 		    br.sendTransform(tf::StampedTransform(transform, joint_msg.header.stamp, base_frame_, tool_frame_));
 
 		    //Publish tool velocity
-            std::vector<double> tcp_speed = robot_.rt_interface_->robot_state_->getTcpSpeedActual();
+            /*std::vector<double> tcp_speed = robot_.rt_interface_->robot_state_->getTcpSpeedActual();
 		    geometry_msgs::TwistStamped tool_twist;
 		    tool_twist.header.frame_id = base_frame_;
 		    tool_twist.header.stamp = joint_msg.header.stamp;
@@ -544,7 +568,7 @@ private:
 		    tool_twist.twist.angular.x = tcp_speed[3];
 		    tool_twist.twist.angular.y = tcp_speed[4];
 		    tool_twist.twist.angular.z = tcp_speed[5];
-		    tool_vel_pub.publish(tool_twist);
+            tool_vel_pub.publish(tool_twist);*/
 
 		    robot_.rt_interface_->robot_state_->setDataPublished();
 		}
@@ -583,7 +607,7 @@ int main(int argc, char **argv) {
 
     RosWrapper interface(host, reverse_port);
 
-	ros::AsyncSpinner spinner(3);
+    ros::AsyncSpinner spinner(6);
 	spinner.start();
 
 	ros::waitForShutdown();

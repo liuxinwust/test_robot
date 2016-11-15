@@ -403,7 +403,7 @@
     <child
       link="${prefix}wrist1_Link" />
     <axis
-      xyz="0 0 -1" />
+      xyz="0 0 1" />
     <limit
       lower="-3.05"
       upper="3.05"
@@ -507,7 +507,7 @@
     <child
       link="${prefix}wrist2_Link" />
     <axis
-      xyz="0 0 -1" />
+      xyz="0 0 1" />
     <limit
       lower="-3.05"
       upper="3.05"

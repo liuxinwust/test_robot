@@ -40,14 +40,20 @@ private:
 
 public:
 	bool connected_;
-	RobotStateRT* robot_state_;
+	RobotState* robot_state_;
 
 	AuboRealtimeCommunication(std::condition_variable& msg_cond, std::string host);
 	bool start();
 	void halt();
-        void getRobotState();
+        
+	void setSpeed(double q0, double q1, double q2,double q3, double q4, double q5, double acc);
 	void addCommandToQueue(std::string inp);
 	std::string getLocalIp();
+
+	void getRobotPosition();
+	void getRobotJointStatus();
+	void getRobotSystemStatus();
+	void getRobotEndSpeed();
 
 };
 
