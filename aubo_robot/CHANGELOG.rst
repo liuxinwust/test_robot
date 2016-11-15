@@ -2,6 +2,11 @@
 Changelog for package aubo_robot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* new version:add aubo_panel,aubo_new_driver
+* Contributors: robot
+
 0.2.2 (2016-10-27)
 ------------------
 

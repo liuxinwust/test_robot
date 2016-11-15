@@ -2,6 +2,12 @@
 Changelog for package aubo_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* new version:add aubo_panel,aubo_new_driver
+* new version:add aubo_panel,aubo_new_driver
+* Contributors: robot
+
 0.2.2 (2016-10-27)
 ------------------
 
