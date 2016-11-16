@@ -42,7 +42,7 @@ void chatterCallback(const aubo_msgs::TraPoint::ConstPtr &msg)
 
 void chatterCallback1(const aubo_msgs::GoalPoint::ConstPtr &msg)
 {
-    ROS_INFO("goal=[%f,%f,%f,%f,%f,%f]",msg->joint1,msg->joint2,msg->joint3,msg->joint4,msg->joint5,msg->joint6);
+    //ROS_INFO("goal=[%f,%f,%f,%f,%f,%f]",msg->joint1,msg->joint2,msg->joint3,msg->joint4,msg->joint5,msg->joint6);
 
     goal.bus = msg->bus;
     goal.joint1 = msg->joint1;
@@ -86,7 +86,7 @@ void timerCallback(const ros::TimerEvent& e)
            else if(traj_point.bus == 1 )
            {
                cmd_pub2.publish(joints_cmd);
-               ROS_INFO("servoj:%f,%f,%f,%f,%f,%f",joints_cmd.data[0],joints_cmd.data[1],joints_cmd.data[2],joints_cmd.data[3],joints_cmd.data[4],joints_cmd.data[5]);
+               //ROS_INFO("servoj:%f,%f,%f,%f,%f,%f",joints_cmd.data[0],joints_cmd.data[1],joints_cmd.data[2],joints_cmd.data[3],joints_cmd.data[4],joints_cmd.data[5]);
            }
 
            i++;

@@ -52,7 +52,7 @@
   <run_depend>aubo_gazebo</run_depend>
   <run_depend>aubo_kinematics</run_depend>
   <run_depend>aubo_trajectory</run_depend>
-  <run_depend>industrial_trajectory_filters</run_depend>
+  <run_depend>aubo_trajectory_filters</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
