@@ -7,8 +7,8 @@ Changelog for package aubo_i5_moveit_config
 * new version:add aubo_panel,aubo_new_driver
 * Contributors: robot
 
-Forthcoming
------------
+0.3.1 (2016-11-16)
+------------------
 * add trajectory filter for moveit plan
 * changlog
 * new version:add aubo_panel,aubo_new_driver
