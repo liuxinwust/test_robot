@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>aubo_robot</name>
-  <version>0.2.3</version>
+  <version>0.3.0</version>
   <description>
 	Description,drivers, moveit and utilities for AUBO Robot Arms.
   </description>
@@ -52,6 +52,7 @@
   <run_depend>aubo_gazebo</run_depend>
   <run_depend>aubo_kinematics</run_depend>
   <run_depend>aubo_trajectory</run_depend>
+  <run_depend>industrial_trajectory_filters</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

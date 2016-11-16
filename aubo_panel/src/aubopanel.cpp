@@ -349,7 +349,7 @@ void AuboPanel::on_pbn_sendGoal_clicked()
         goalPoint.joint3 = joints.data[2];
         goalPoint.joint4 = joints.data[3];
         goalPoint.joint5 = joints.data[4];
-        goalPoint.joint6 = joints.data[4];
+        goalPoint.joint6 = joints.data[5];
         goal_publisher_.publish(goalPoint);
     }
 }

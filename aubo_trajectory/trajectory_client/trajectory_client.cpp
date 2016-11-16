@@ -204,7 +204,7 @@ class RobotArm
   int ret = 0;
   for(int i=0;i<6;i++)
   {
-    if(fabs(goal[i]-last_way_point[i])>0.001)
+    if(fabs(goal[i]-last_way_point[i])>=0.000001)
     {
        ret = 1;
        break;

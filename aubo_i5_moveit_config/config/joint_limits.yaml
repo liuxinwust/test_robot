@@ -4,17 +4,17 @@
 joint_limits:
   foreArm_joint:
     has_velocity_limits: true
-    max_velocity: 3.3
+    max_velocity: 3.30
     has_acceleration_limits: false
     max_acceleration: 0
   shoulder_joint:
     has_velocity_limits: true
-    max_velocity: 3.3
+    max_velocity: 3.30
     has_acceleration_limits: false
     max_acceleration: 0
   upperArm_joint:
     has_velocity_limits: true
-    max_velocity: 3.3
+    max_velocity: 3.30
     has_acceleration_limits: false
     max_acceleration: 0
   wrist1_joint:

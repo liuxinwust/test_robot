@@ -9,7 +9,7 @@ int road_point_compare(double *goal)
   int ret = 0;
   for(int i=0;i<6;i++)
   {
-    if(fabs(goal[i]-last_road_point[i])>0.001)
+    if(fabs(goal[i]-last_road_point[i])>=0.000001)
     {
        ret = 1;
        break;

@@ -2,10 +2,8 @@
 #include <math.h>
 #include "aubo_msgs/GoalPoint.h"
 #include "aubo_msgs/TraPoint.h"
-#include "moveit_msgs/DisplayTrajectory.h"
 
 using namespace std;
-
 double last_road_point[6];
 
 std::vector<double> group_variable_values;
@@ -14,13 +12,8 @@ moveit::planning_interface::MoveGroup *ptr_group;
 ros::Publisher tra_pub;
 aubo_msgs::TraPoint tra_point;
 
-ros::Publisher display_path;
-
 int goal_trajectory(double *road)
 {
-
-  moveit_msgs::DisplayTrajectory display_trajectory;
-
   int point_num;
   /*Planning to a joint-space goal*/ 
   group_variable_values[0] = road[0];
@@ -37,12 +30,7 @@ int goal_trajectory(double *road)
 
   ROS_INFO("Visualizing plan 1 (joint space goal) %s",success?"":"FAILED");
 
-  //display_trajectory.trajectory_start = my_plan.start_state_;
-  //display_trajectory.trajectory.push_back(my_plan.trajectory_);
-  //display_path.publish(display_trajectory);
-
   ptr_group->execute(my_plan);
-
 
   point_num = my_plan.trajectory_.joint_trajectory.points.size();
 
@@ -71,7 +59,7 @@ int road_point_compare(double *goal)
   int ret = 0;
   for(int i=0;i<6;i++)
   {
-  	if(fabs(goal[i]-last_road_point[i])>0.001)
+    if(fabs(goal[i]-last_road_point[i])>=0.000001)
 	{
        ret = 1;
 	   break;
@@ -128,7 +116,6 @@ int main(int argc, char **argv)
   ros::Subscriber sub1 = nh.subscribe("goal_pos", 1000, chatterCallback);
   tra_pub = nh.advertise<aubo_msgs::TraPoint> ("tra_point", 1000);
   
-  display_path = nh.advertise<moveit_msgs::DisplayTrajectory>("/move_group/display_planned_path", 1, true);
 
   last_road_point[0]= 0;
   last_road_point[1]= 0;
