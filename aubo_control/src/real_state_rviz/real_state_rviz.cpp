@@ -1,7 +1,7 @@
 #include <string>
 #include <ros/ros.h>
 #include <sensor_msgs/JointState.h>
-#include "aubo_msgs/JointPos.h"
+#include <aubo_msgs/JointPos.h>
 #include <tf/transform_broadcaster.h>
 
 aubo_msgs::JointPos cur_pos;

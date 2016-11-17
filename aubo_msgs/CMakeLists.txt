@@ -4,7 +4,7 @@ project(aubo_msgs)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp rospy message_generation std_msgs)
+find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -42,10 +42,10 @@ find_package(catkin REQUIRED COMPONENTS roscpp rospy message_generation std_msgs
 ## Generate messages in the 'msg' folder
 add_message_files(
    FILES
-   GoalPoint.msg
    IOState.msg
    JointPos.msg
    TraPoint.msg
+   GoalPoint.msg
  )
 
 ## Generate services in the 'srv' folder
