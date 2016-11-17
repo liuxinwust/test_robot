@@ -7,7 +7,6 @@ project(aubo_driver)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
-  rospy
   roscpp
   std_msgs
   aubo_msgs
