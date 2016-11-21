@@ -2,7 +2,7 @@ Aubo_Robot
 ===============================================================================================
 
 This repository provides ROS support for the aubo robots.  
-This repo holds source code for ROS versions Indigo.
+This repo holds source code for ROS versions JADE.
 
 __Operating System Install__  
 
