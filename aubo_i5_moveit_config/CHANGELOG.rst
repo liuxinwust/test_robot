@@ -16,6 +16,8 @@ Changelog for package aubo_i5_moveit_config
 
 Forthcoming
 -----------
+* indigo-devel relaease version
+* Contributors: robot
 
 0.3.6 (2016-11-17)
 ------------------
