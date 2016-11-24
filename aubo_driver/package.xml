@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>aubo_driver</name>
-  <version>0.3.10</version>
+  <version>0.3.11</version>
   <description>The aubo_driver package for connect the TCP/IP Server </description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 

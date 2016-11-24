@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>aubo_trajectory</name>
-  <version>0.3.10</version>
+  <version>0.3.11</version>
   <description>The aubo_trajectory package</description>
 
   <author email="liuxin@our-robotics.com">liuxin</author>
