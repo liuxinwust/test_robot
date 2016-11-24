@@ -42,6 +42,7 @@
 #include <hardware_interface/joint_command_interface.h>
 #include <hardware_interface/force_torque_sensor_interface.h>
 #include <hardware_interface/robot_hw.h>
+#include <hardware_interface/controller_info.h>
 #include <controller_manager/controller_manager.h>
 #include <boost/scoped_ptr.hpp>
 #include <ros/ros.h>

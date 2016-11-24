@@ -18,9 +18,9 @@ joint_state_controller:
    publish_rate: 100
 
 # Publish wrench ----------------------------------
-force_torque_sensor_controller:
-   type:         force_torque_sensor_controller/ForceTorqueSensorController
-   publish_rate: 100
+#force_torque_sensor_controller:
+#   type: force_torque_sensor_controller/ForceTorqueSensorController
+#   publish_rate: 100
 
 # Joint Trajectory Controller - position based -------------------------------
 # For detailed explanations of parameter see http://wiki.ros.org/joint_trajectory_controller

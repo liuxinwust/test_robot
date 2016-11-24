@@ -89,6 +89,8 @@ void AuboRealtimeCommunication::setSpeed(double q0, double q1, double q2,
             "speedj([%1.5f, %1.5f, %1.5f, %1.5f, %1.5f, %1.5f], %f)\n",
             q0, q1, q2, q3, q4, q5, acc);
 
+    print_info((std::string)cmd);
+
     //not implement yet
     //addCommandToQueue((std::string) (cmd));
 
