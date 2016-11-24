@@ -1,4 +1,4 @@
-#include "aubopanel.h"
+#include "aubo_panel/aubopanel.h"
 #include "ui_aubopanel.h"
 #include <math.h>
 

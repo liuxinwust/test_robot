@@ -9,7 +9,7 @@
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
   <author email="liuxin@our-robotics.com">liuxin</author>
   <maintainer email="liuxin@our-robotics.com">liuxin</maintainer>
-  <license>BSD</license>
+ 
   <url type="website">http://wiki.ros.org/aubo_msgs</url>
 
 
