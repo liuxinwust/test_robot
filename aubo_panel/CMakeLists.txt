@@ -15,7 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(Qt4 REQUIRED)
 
 catkin_package(
-#  INCLUDE_DIRS include
+  INCLUDE_DIRS include
 #  LIBRARIES hello_world
   CATKIN_DEPENDS roscpp rospy std_msgs sensor_msgs aubo_msgs pluginlib rviz
 #  DEPENDS system_lib
@@ -48,7 +48,7 @@ link_directories( ${OGRE_LIBRARY_DIRS} )
 add_definitions(-DQT_NO_KEYWORDS)
 
 
-qt4_wrap_cpp(MOC_FILES src/aubopanel.h)
+#qt4_wrap_cpp(MOC_FILES src/aubopanel.h)
 
 qt4_wrap_ui(ui_FILES src/aubopanel.ui)
 
@@ -56,7 +56,7 @@ qt4_wrap_ui(ui_FILES src/aubopanel.ui)
 
 set(SOURCE_FILES
     src/aubopanel.cpp
-    ${MOC_FILES}
+   # ${MOC_FILES}
     ${ui_FILES}
 )
 
