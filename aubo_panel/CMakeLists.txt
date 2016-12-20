@@ -48,7 +48,7 @@ link_directories( ${OGRE_LIBRARY_DIRS} )
 add_definitions(-DQT_NO_KEYWORDS)
 
 
-#qt4_wrap_cpp(MOC_FILES src/aubopanel.h)
+qt4_wrap_cpp(MOC_FILES include/aubo_panel/aubopanel.h)
 
 qt4_wrap_ui(ui_FILES src/aubopanel.ui)
 
@@ -56,7 +56,7 @@ qt4_wrap_ui(ui_FILES src/aubopanel.ui)
 
 set(SOURCE_FILES
     src/aubopanel.cpp
-   # ${MOC_FILES}
+    ${MOC_FILES}
     ${ui_FILES}
 )
 
