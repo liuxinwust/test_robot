@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>aubo_description</name>
-  <version>0.3.11</version>
+  <version>0.3.12</version>
   <description>The aubo_description package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 

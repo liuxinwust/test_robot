@@ -1,6 +1,6 @@
 <package>
   <name>aubo_trajectory_filters</name>
-  <version>0.3.11</version>
+  <version>0.3.12</version>
   <description>
    <p>
      ROS Industrial libraries/plugins for filtering trajectories.

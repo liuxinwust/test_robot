@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>aubo_robot</name>
-  <version>0.3.11</version>
+  <version>0.3.12</version>
   <description>
 	Description,drivers, moveit and utilities for AUBO Robot Arms.
   </description>
