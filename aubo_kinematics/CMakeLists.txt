@@ -9,7 +9,7 @@ find_package(Boost REQUIRED COMPONENTS system)
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES aubo_i5_kin aubo_i5_moveit_plugin
-  CATKIN_DEPENDS roscpp geometry_msgs moveit_core moveit_ros_planning
+  CATKIN_DEPENDS roscpp geometry_msgs moveit_core moveit_kinematics  moveit_ros_planning
     pluginlib tf_conversions
   DEPENDS boost
 )
