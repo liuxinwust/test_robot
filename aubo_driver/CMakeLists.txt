@@ -208,6 +208,10 @@ install(DIRECTORY include/${PROJECT_NAME}/
 # catkin_add_nosetests(test)
 
 
+add_dependencies(aubo_driver aubo_msgs_gencpp)
+
+
+
 
 
 

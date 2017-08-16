@@ -2,11 +2,11 @@ Aubo_Robot
 ===============================================================================================
 
 This repository provides ROS support for the aubo robots.  
-This repo holds source code for ROS versions JADE.
+This repo holds source code for ROS versions kinetic.
 
 __Operating System Install__  
 
-Operating system version is not less than Ubuntu linux 14.04, both supports 32bit and 64bit system.
+Operating system version is not less than Ubuntu linux 16.04, both supports 32bit and 64bit system.
 Ubuntu Linux download:http://www.ubuntu.com/download/
 
 __Peak_Can drive Install__  
@@ -99,7 +99,7 @@ There is a trajectory demo for this part use Peakcan Tool,also can use TCP/IP bu
 
 5.A control panel with real robot,run command:
 
-```roslaunch aubo_description aubo_i5_rviz.launch```
+```roslaunch aubo_description aubo_i5.launch```
 
    there is a sim A simple control panel in Rviz
 

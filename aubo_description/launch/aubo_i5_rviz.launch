@@ -2,11 +2,11 @@
 <launch>
 
   <param 
-    name="robot_description" command="$(find xacro)/xacro.py '$(find aubo_description)/urdf/aubo_i5_robot.urdf.xacro'" />
+    name="robot_description" command="$(find xacro)/xacro --inorder '$(find aubo_description)/urdf/aubo_i5_robot.urdf.xacro'" />
   <node
     name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
  	<param name="state_publish_rate" type="double" value="1.0" />
-	<param name="use_gui" value="true"/>
+	<param name="use_gui" value="false"/>
   </node>
 
   <node

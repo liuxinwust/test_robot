@@ -12,7 +12,6 @@ find_package(catkin REQUIRED COMPONENTS
   rviz
 )
 
-find_package(Qt4 REQUIRED)
 
 catkin_package(
   INCLUDE_DIRS include
@@ -32,10 +31,11 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+set(CMAKE_AUTOMOC ON)
+
 
 ## This plugin includes Qt widgets, so we must include Qt like so:
-find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
-include(${QT_USE_FILE})
+find_package(Qt5Widgets)
 
 
 ## We also use Ogre
@@ -48,10 +48,9 @@ link_directories( ${OGRE_LIBRARY_DIRS} )
 add_definitions(-DQT_NO_KEYWORDS)
 
 
-qt4_wrap_cpp(MOC_FILES include/aubo_panel/aubopanel.h)
+qt5_wrap_cpp(MOC_FILES include/aubo_panel/aubopanel.h)
 
-qt4_wrap_ui(ui_FILES src/aubopanel.ui)
-
+qt5_wrap_ui(ui_FILES src/aubopanel.ui)
 
 
 set(SOURCE_FILES
@@ -60,14 +59,11 @@ set(SOURCE_FILES
     ${ui_FILES}
 )
 
-#add_executable(aubo_panel
-#               src/aubopanel.cpp
-#	       ${MOC_FILES}
-#	       ${ui_FILES})
 
 add_library(aubo_panel ${SOURCE_FILES})
 
-target_link_libraries(aubo_panel ${QT_LIBRARIES} ${catkin_LIBRARIES} ${OGRE_LIBRARIES})
+
+target_link_libraries(aubo_panel Qt5::Widgets ${catkin_LIBRARIES} ${OGRE_LIBRARIES})
 
 
 #############
@@ -80,7 +76,9 @@ install(TARGETS aubo_panel
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
+
 # install moveit plugin description file
 install(FILES aubo_rviz_plugins.xml
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
+

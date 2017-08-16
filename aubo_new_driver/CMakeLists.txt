@@ -132,6 +132,9 @@ else()
 endif()
 
 
+
+
+
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
@@ -230,6 +233,14 @@ add_subdirectory(test)
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+
+add_dependencies(action_test aubo_msgs_gencpp)
+
+
+
+
+
 
 
 

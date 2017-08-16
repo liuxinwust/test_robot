@@ -1,4 +1,4 @@
-#include <moveit/move_group_interface/move_group.h>
+#include <moveit/move_group_interface/move_group_interface.h>
 #include <math.h>
 #include "aubo_msgs/GoalPoint.h"
 #include "aubo_msgs/TraPoint.h"
@@ -7,7 +7,7 @@ using namespace std;
 double last_road_point[6];
 
 std::vector<double> group_variable_values;
-moveit::planning_interface::MoveGroup *ptr_group;
+moveit::planning_interface::MoveGroupInterface *ptr_group;
 
 ros::Publisher tra_pub;
 aubo_msgs::TraPoint tra_point;
@@ -24,7 +24,7 @@ int goal_trajectory(double *road)
   group_variable_values[5] = road[5];
   ptr_group->setJointValueTarget(group_variable_values);
 
-  moveit::planning_interface::MoveGroup::Plan my_plan;
+  moveit::planning_interface::MoveGroupInterface::Plan my_plan;
 
   bool success = ptr_group->plan(my_plan);
 
@@ -124,7 +124,7 @@ int main(int argc, char **argv)
   last_road_point[4]= 0;
   last_road_point[5]= 0;
 
-  moveit::planning_interface::MoveGroup group("arm_group");
+  moveit::planning_interface::MoveGroupInterface group("arm_group");
   ptr_group = &group;
   ptr_group->getCurrentState()->copyJointGroupPositions(ptr_group->getCurrentState()->getRobotModel()->getJointModelGroup(ptr_group->getName()), group_variable_values);
   

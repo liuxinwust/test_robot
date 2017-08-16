@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(aubo_trajectory)
 
+add_compile_options(-std=c++11)
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -37,6 +39,11 @@ link_directories(${catkin_LIBRARY_DIRS})
 add_subdirectory(trajectory_client)
 add_subdirectory(trajectory_gen)
 add_subdirectory(trajectory_goal)
+
+
+add_dependencies(trajectory_gen aubo_msgs_gencpp)
+add_dependencies(trajectory_goal aubo_msgs_gencpp)
+
 
 
 

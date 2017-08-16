@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(aubo_kinematics)
 
-find_package(catkin REQUIRED COMPONENTS roscpp geometry_msgs moveit_core
-  moveit_ros_planning pluginlib tf_conversions)
+add_compile_options(-std=c++11)
+
+find_package(catkin REQUIRED COMPONENTS roscpp geometry_msgs moveit_core moveit_kinematics moveit_ros_planning pluginlib tf_conversions)
 
 find_package(Boost REQUIRED COMPONENTS system)
 
@@ -10,8 +11,8 @@ catkin_package(
   INCLUDE_DIRS include
   LIBRARIES aubo_i5_kin aubo_i5_moveit_plugin
   CATKIN_DEPENDS roscpp geometry_msgs moveit_core moveit_kinematics moveit_ros_planning
-    pluginlib tf_conversions
-  DEPENDS boost
+  pluginlib tf_conversions
+  DEPENDS Boost
 )
 
 
