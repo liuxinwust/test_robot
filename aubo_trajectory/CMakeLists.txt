@@ -39,4 +39,5 @@ add_subdirectory(trajectory_gen)
 add_subdirectory(trajectory_goal)
 
 
-
+add_dependencies(trajectory_gen aubo_msgs_gencpp)
+add_dependencies(trajectory_goal aubo_msgs_gencpp)

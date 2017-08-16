@@ -99,7 +99,7 @@ There is a trajectory demo for this part use Peakcan Tool,also can use TCP/IP bu
 
 5.A control panel with real robot,run command:
 
-```roslaunch aubo_description aubo_i5_rviz.launch```
+```roslaunch aubo_description aubo_i5.launch```
 
    there is a sim A simple control panel in Rviz
 
