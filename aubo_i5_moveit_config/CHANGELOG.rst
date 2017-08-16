@@ -23,8 +23,8 @@ Changelog for package aubo_i5_moveit_config
 * fixed up aubo_kinematics
 * Contributors: robot
 
-Forthcoming
------------
+0.3.16 (2017-08-16)
+-------------------
 
 0.3.13 (2016-12-20)
 -------------------
