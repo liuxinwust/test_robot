@@ -3,8 +3,8 @@
   <arg name="debug" default="false" />
     
   <!-- Remap follow_joint_trajectory -->
-  <remap if="$(arg sim)" from="/follow_joint_trajectory" to="/arm_controller/follow_joint_trajectory"/>
-  <!--remap if="$(arg sim)" from="/follow_joint_trajectory" to="/pos_based_pos_traj_controller/follow_joint_trajectory"/-->
+  <!--remap if="$(arg sim)" from="/follow_joint_trajectory" to="/arm_controller/follow_joint_trajectory"/-->
+  <remap if="$(arg sim)" from="/follow_joint_trajectory" to="/pos_based_pos_traj_controller/follow_joint_trajectory"/>
   
   <!-- Launch moveit -->
   <include file="$(find aubo_i5_moveit_config)/launch/move_group.launch">

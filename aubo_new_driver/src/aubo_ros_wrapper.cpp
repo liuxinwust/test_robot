@@ -100,7 +100,7 @@ public:
 			controller_manager_.reset(
 					new controller_manager::ControllerManager(hardware_interface_.get(), nh_));
 
-			double max_vel_change = 0.12; // equivalent of an acceleration of 15 rad/sec^2
+			double max_vel_change = 0.06; // equivalent of an acceleration of 15 rad/sec^2
 			if (ros::param::get("~max_acceleration", max_vel_change)) {
 				max_vel_change = max_vel_change / 125;
 			}
@@ -111,7 +111,7 @@ public:
 		}
 
 		//Using a very high value in order to not limit execution of trajectories being sent from MoveIt!
-		max_velocity_ = 10.;
+		max_velocity_ = 5.;
 		if (ros::param::get("~max_velocity", max_velocity_)) {
 			sprintf(buf, "Max velocity accepted by aubo_new_driver: %f [rad/s]",
 					max_velocity_);
@@ -119,7 +119,7 @@ public:
 		}
 
 
-        double servoj_time = 0.020;
+        double servoj_time = 0.008;
         if (ros::param::get("~servoj_time", servoj_time)) {
             sprintf(buf, "Servoj_time set to: %f [sec]", servoj_time);
             print_debug(buf);
