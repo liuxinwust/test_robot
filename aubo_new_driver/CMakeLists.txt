@@ -232,6 +232,6 @@ add_subdirectory(test)
 # catkin_add_nosetests(test)
 
 
-
+add_dependencies(action_test aubo_msgs_gencpp)
 
 

@@ -120,7 +120,7 @@ class RobotArm
          }
 
          // To be reached 2 seconds after starting along the trajectory
-         goal.trajectory.points[1].time_from_start = ros::Duration(1.0);
+         goal.trajectory.points[1].time_from_start = ros::Duration(2.5);
 
 
          return goal;

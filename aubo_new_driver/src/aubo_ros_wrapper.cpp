@@ -470,7 +470,7 @@ private:
 		struct timespec last_time, current_time;
 		static const double BILLION = 1000000000.0;
 
-        ros::Rate loop_rate(100);
+        ros::Rate loop_rate(125);
 
 		clock_gettime(CLOCK_MONOTONIC, &last_time);
 		while (ros::ok()) {

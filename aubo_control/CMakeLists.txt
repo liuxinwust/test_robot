@@ -49,5 +49,6 @@ add_subdirectory(src/joint_state_sub)
 add_subdirectory(src/real_state_rviz)
 
 
-
+add_dependencies(joint_control_pcan aubo_msgs_gencpp)
+add_dependencies(real_state_rviz aubo_msgs_gencpp)
 

@@ -209,5 +209,5 @@ install(DIRECTORY include/${PROJECT_NAME}/
 
 
 
-
+add_dependencies(aubo_driver aubo_msgs_gencpp)
 
