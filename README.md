@@ -1,7 +1,10 @@
 Aubo_Robot
 ===============================================================================================
 
-This repository provides ROS support for the aubo robots.  
+This repository provides ROS support for the aubo robots
+
+__Notice : Robot version must >= V4.0__  
+
 This repo holds source code for ROS versions JADE.
 
 __Operating System Install__  
