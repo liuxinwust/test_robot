@@ -17,8 +17,8 @@ Changelog for package aubo_i5_moveit_config
 0.3.12 (2016-12-20)
 -------------------
 
-Forthcoming
------------
+0.3.17 (2017-09-05)
+-------------------
 * kinetic-devel
 * aubo-robot kinetic-devel
 * Contributors: auboliuxin
