@@ -19,6 +19,19 @@ Changelog for package aubo_i5_moveit_config
 
 Forthcoming
 -----------
+* kinetic-devel
+* aubo-robot kinetic-devel
+* Contributors: auboliuxin
+
+* kinetic-devel
+* kinetic-devel
+* aubo-robot kinetic-devel
+* Contributors: auboliuxin
+
+* kinetic-devel
+* aubo-robot kinetic-devel
+* Contributors: auboliuxin
+
 * aubo-robot kinetic-devel
 * Contributors: auboliuxin
 

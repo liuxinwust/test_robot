@@ -142,6 +142,8 @@ include_directories(include
   ${catkin_INCLUDE_DIRS}
 )
 
+
+
 ## Declare a C++ library
 # Hardware Interface
 add_library(aubo_hardware_interface src/aubo_hardware_interface.cpp)

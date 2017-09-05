@@ -7,4 +7,4 @@ moveit_setup_assistant_config:
   CONFIG:
     author_name: liuxin
     author_email: liuxin@aubo-robotics.cn
-    generated_timestamp: 1502784879
+    generated_timestamp: 1503653065

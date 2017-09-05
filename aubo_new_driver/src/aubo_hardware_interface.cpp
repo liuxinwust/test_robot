@@ -68,6 +68,7 @@ void AuboHardwareInterface::init() {
 	joint_velocity_.resize(num_joints_);
 	joint_effort_.resize(num_joints_);
 	joint_position_command_.resize(num_joints_);
+	last_joint_position_command_.resize(num_joints_);
 	joint_velocity_command_.resize(num_joints_);
 	prev_joint_velocity_command_.resize(num_joints_);
 
@@ -131,6 +132,7 @@ void AuboHardwareInterface::setMaxVelChange(double inp) {
 }
 
 void AuboHardwareInterface::write() {
+        int i=0;
 	if (velocity_interface_running_) {
 		std::vector<double> cmd;
 		//do some rate limiting
@@ -148,7 +150,20 @@ void AuboHardwareInterface::write() {
         robot_->setSpeed(cmd[0], cmd[1], cmd[2], cmd[3], cmd[4], cmd[5],  max_vel_change_*125);
     }
     else if (position_interface_running_) {
-        robot_->servoj(joint_position_command_);
+
+	  for(i=0;i<6;i++)
+	  {
+	    if(fabs(joint_position_command_[i]-last_joint_position_command_[i])>=0.000001)
+	    {
+	       break;
+	    }
+	  }
+
+	  if(i<6)
+	  {
+	    robot_->servoj(joint_position_command_);
+            last_joint_position_command_ = joint_position_command_;
+	  }
 	}
 }
 

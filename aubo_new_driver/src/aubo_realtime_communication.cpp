@@ -146,7 +146,7 @@ void AuboRealtimeCommunication::run() {
 		while (connected_ && keepalive_) {
 
             timeout.tv_sec = 0; //do this each loop as selects modifies timeout
-            timeout.tv_usec = 200000; // timeout of 0.2 sec
+            timeout.tv_usec = 50000; // timeout of 0.05 sec
             select(sockfd_ + 1, &readfds, NULL, NULL, &timeout);
 
             bzero(buf, 2048);

@@ -17,7 +17,7 @@
   <param name="planning_plugin" value="$(arg planning_plugin)" />
   <param name="request_adapters" value="$(arg planning_adapters)" />
   <param name="start_state_max_bounds_error" value="$(arg start_state_max_bounds_error)" />
-  <param name="sample_duration" value="0.01"/>
+  <param name="sample_duration" value="0.010"/>
 
   <rosparam command="load" file="$(find aubo_i5_moveit_config)/config/ompl_planning.yaml"/>
 
